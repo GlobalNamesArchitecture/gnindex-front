@@ -13,6 +13,7 @@ export class NameStringsSearchComponent implements OnInit {
   searchParamName = 'search';
   searchText = '';
   results: Array<NameStringEntry> = [];
+  resultIsFetched = false;
 
   constructor(private _apiClientService: ApiClientService,
               private _activatedRoute: ActivatedRoute,
@@ -38,6 +39,7 @@ export class NameStringsSearchComponent implements OnInit {
     this._apiClientService.searchNameStrings(this.searchText)
       .subscribe((nses: Array<NameStringEntry>) => {
         this.results = nses.slice(0, 30);
+        this.resultIsFetched = true;
         console.log('name-strings results:')
         console.log(this.results);
       });

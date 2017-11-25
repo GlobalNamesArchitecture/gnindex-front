@@ -2,7 +2,9 @@
 
   <div class="col-lg-8">
     <div class="input-group">
-      <input [(ngModel)]="searchText" type="text" class="form-control" placeholder="Search..." aria-label="Search...">
+      <input [(ngModel)]="searchText" type="text" class="form-control"
+             placeholder="Search..." aria-label="Search..."
+             (input)="resultIsFetched = false">
       <span class="input-group-btn">
         <button class="btn btn-secondary" type="button" (click)="search()">Go!</button>
       </span>
@@ -19,6 +21,13 @@
           <h6>Canonical name: {{result.canonicalName}}</h6>
           <p *ngIf="result.classificationPath">Classification path: {{result.classificationPath}}</p>
         </div>
+      </div>
+
+      <div *ngIf="resultIsFetched && results.length == 0">
+        <hr/>
+        <p>
+          Alas, there are no results for "{{searchText}}". Try another one...
+        </p>
       </div>
 
       <nav *ngIf="results.length > 0" class="blog-pagination">
