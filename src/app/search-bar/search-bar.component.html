@@ -1,12 +1,8 @@
-<div class="row">
-  <div class="col-lg-6">
-    <div class="input-group">
-      <input [(ngModel)]="searchText" type="text" class="form-control"/>
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button" (click)="search()">
-          Search
-        </button>
-      </span>
-    </div>
+<div class="col-lg-6">
+  <div class="input-group">
+    <input [(ngModel)]="searchText" type="text" class="form-control" placeholder="Search..." aria-label="Search...">
+    <span class="input-group-btn">
+      <button class="btn btn-secondary" type="button" (click)="search()">Go!</button>
+    </span>
   </div>
 </div>
