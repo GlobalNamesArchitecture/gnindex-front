@@ -17,6 +17,7 @@ class NameStringEntry {
 @Injectable()
 export class ApiClientService {
   private _apollo: Apollo;
+  result = [];
   private NAME_STRINGS_QUERY = gql`
     query ($searchTerm: String!) {
       nameStrings(searchTerm: $searchTerm) {
@@ -35,18 +36,18 @@ export class ApiClientService {
     this._apollo = apollo;
   }
 
-  performSearch(searchText: string) {
-    console.log(searchText);
+  searchNameStrings(searchText: string) {
+    console.log('searchText: ' + searchText);
     this._apollo.query<NameStringsQuery, NameStringsQueryVariables>({
       query: this.NAME_STRINGS_QUERY,
       variables: {
         searchTerm: searchText
       }
     }).subscribe(({data}) => {
-      const result = data.nameStrings.map((x) => {
+      this.result = data.nameStrings.map((x) => {
         return new NameStringEntry(x.name.value, x.canonicalName.value);
       });
-      console.log(result);
+      console.log(this.result);
     });
   }
 
