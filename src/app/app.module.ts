@@ -9,14 +9,14 @@ import {HttpClientModule} from '@angular/common/http';
 import {Apollo, ApolloModule} from 'apollo-angular';
 import {HttpLink, HttpLinkModule} from 'apollo-angular-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
-import {SearchBarComponent} from './search-bar/search-bar.component';
+import {NameStringsSearchComponent} from './name-strings-search/name-strings-search.component';
 import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SearchBarComponent
+    NameStringsSearchComponent
   ],
   imports: [
     BrowserModule,
