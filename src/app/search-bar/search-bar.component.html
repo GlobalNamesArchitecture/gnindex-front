@@ -1,8 +1,32 @@
-<div class="col-lg-6">
-  <div class="input-group">
-    <input [(ngModel)]="searchText" type="text" class="form-control" placeholder="Search..." aria-label="Search...">
-    <span class="input-group-btn">
-      <button class="btn btn-secondary" type="button" (click)="search()">Go!</button>
-    </span>
+<main role="main" class="container">
+
+  <div class="col-lg-8">
+    <div class="input-group">
+      <input [(ngModel)]="searchText" type="text" class="form-control" placeholder="Search..." aria-label="Search...">
+      <span class="input-group-btn">
+        <button class="btn btn-secondary" type="button" (click)="search()">Go!</button>
+      </span>
+    </div>
   </div>
-</div>
+
+  <hr *ngIf="results.length > 0"/>
+
+  <div class="row">
+    <div class="col-sm-8 blog-main">
+
+      <div *ngFor="let result of results">
+        <div class="blog-post">
+          <h2 class="blog-post-title">{{result.name}}</h2>
+          <p class="blog-post-meta">meta info</p>
+          <p>Canonical name: {{result.canonicalName}}</p>
+        </div>
+      </div>
+
+      <nav *ngIf="false && results.length > 0" class="blog-pagination">
+        <a class="btn btn-outline-primary" href="#"><</a>
+        <a class="btn btn-outline-secondary disabled" href="#">></a>
+      </nav>
+    </div>
+  </div>
+
+</main>
