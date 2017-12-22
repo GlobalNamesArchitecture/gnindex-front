@@ -15,6 +15,7 @@ import {NamesResolverComponent} from './names-resolver/names-resolver.component'
 import {IndexComponent} from './index/index.component';
 import {GraphiqlComponent} from './graphiql/graphiql.component';
 import {HelpComponent} from './help/help.component';
+import {MarkdownModule} from "angular2-markdown";
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {HelpComponent} from './help/help.component';
     FormsModule,
     ApolloModule,
     HttpLinkModule,
-    HttpClientModule
+    HttpClientModule,
+    MarkdownModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
