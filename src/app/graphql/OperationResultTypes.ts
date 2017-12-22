@@ -20,6 +20,9 @@ export type NameStringsQuery = {
       id: string,
       value: string,
     } | null,
+    classification:  {
+      path: string | null,
+    },
   } >,
 };
 

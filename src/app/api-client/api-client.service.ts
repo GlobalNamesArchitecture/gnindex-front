@@ -19,6 +19,9 @@ export class ApiClientService {
           id
           value
         }
+        classification {
+          path
+        }
       }
     }`;
 
@@ -37,7 +40,8 @@ export class ApiClientService {
       return data.nameStrings.map((x) => {
         return new NameStringEntry(
           x.name.value,
-          x.canonicalName.value);
+          x.canonicalName.value,
+          x.classification.path);
       });
     });
   }

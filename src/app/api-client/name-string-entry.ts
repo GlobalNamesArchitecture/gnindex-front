@@ -1,10 +1,15 @@
 export class NameStringEntry {
-  name: string;
-  canonicalName: string;
+  name = '';
+  canonicalName = '';
+  classificationPath = '';
 
   constructor(name: string,
-              canonicalName: string) {
+              canonicalName: string,
+              classificationPath: string) {
     this.name = name;
     this.canonicalName = canonicalName;
+    if (classificationPath != null) {
+      this.classificationPath = classificationPath.replace(/\|/gi, ' > ');
+    }
   }
 }
