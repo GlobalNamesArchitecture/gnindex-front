@@ -9,7 +9,7 @@ import {NameStringEntry} from './name-string-entry';
 export class ApiClientService {
   private _apollo: Apollo;
   private NAME_STRINGS_QUERY = gql`
-    query ($searchTerm: String!) {
+    query NameStrings($searchTerm: String!) {
       nameStrings(searchTerm: $searchTerm) {
         name {
           id
@@ -35,7 +35,9 @@ export class ApiClientService {
       }
     }).map(({data}) => {
       return data.nameStrings.map((x) => {
-        return new NameStringEntry(x.name.value, x.canonicalName.value);
+        return new NameStringEntry(
+          x.name.value,
+          x.canonicalName.value);
       });
     });
   }

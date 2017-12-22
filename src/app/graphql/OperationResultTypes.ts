@@ -6,18 +6,6 @@ export type name = {
   suppliedId?: string | null,
 };
 
-export type NameResolverQueryVariables = {
-  names: Array< name >,
-};
-
-export type NameResolverQuery = {
-  nameResolver:  {
-    responses:  Array< {
-      total: number,
-    } >,
-  },
-};
-
 export type NameStringsQueryVariables = {
   searchTerm: string,
 };
@@ -33,4 +21,16 @@ export type NameStringsQuery = {
       value: string,
     } | null,
   } >,
+};
+
+export type NameResolverQueryVariables = {
+  names: Array< name >,
+};
+
+export type NameResolverQuery = {
+  nameResolver:  {
+    responses:  Array< {
+      total: number,
+    } >,
+  },
 };
