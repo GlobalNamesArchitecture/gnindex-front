@@ -11,12 +11,20 @@ import {HttpLink, HttpLinkModule} from 'apollo-angular-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {NameStringsSearchComponent} from './name-strings-search/name-strings-search.component';
 import {FormsModule} from '@angular/forms';
+import {NamesResolverComponent} from './names-resolver/names-resolver.component';
+import {IndexComponent} from './index/index.component';
+import {GraphiqlComponent} from './graphiql/graphiql.component';
+import {HelpComponent} from './help/help.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NameStringsSearchComponent
+    NameStringsSearchComponent,
+    NamesResolverComponent,
+    IndexComponent,
+    GraphiqlComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule,

@@ -2,16 +2,16 @@
   <div class="blog-masthead">
     <div class="container">
       <nav class="nav">
-        <a class="nav-link active" href="#">Name strings</a>
-        <a class="nav-link" href="#">Resolver</a>
-        <a class="nav-link" href="#">Index</a>
-        <a class="nav-link" href="#">GraphiQL</a>
-        <a class="nav-link" href="#">Help</a>
+        <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="'/'">
+          Name strings
+        </a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="'/resolver'">Resolver</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="'/index'">Index</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="'/graphiql'">GraphiQL</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="'/help'">Help</a>
       </nav>
     </div>
   </div>
 </header>
-
-<app-name-strings-search></app-name-strings-search>
 
 <router-outlet></router-outlet>
