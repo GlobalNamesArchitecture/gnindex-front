@@ -33,6 +33,27 @@ export type NameResolverQueryVariables = {
 export type NameResolverQuery = {
   nameResolver:  {
     responses:  Array< {
+      suppliedInput: string | null,
+      results:  Array< {
+        name:  {
+          value: string,
+        },
+        canonicalName:  {
+          value: string,
+        } | null,
+        classification:  {
+          path: string | null,
+        },
+        acceptedName:  {
+          name:  {
+            value: string,
+          },
+        } | null,
+        matchType:  {
+          kind: string,
+          score: number,
+        },
+      } >,
       total: number,
     } >,
   },

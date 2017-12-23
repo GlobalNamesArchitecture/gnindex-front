@@ -10,11 +10,9 @@ import {NameStringEntry} from '../api-client/name-string-entry';
 })
 export class NameStringsSearchComponent implements OnInit {
   searchText = '';
-  _apiClientService: ApiClientService;
   results: Array<NameStringEntry> = [];
 
-  constructor(apiClientService: ApiClientService) {
-    this._apiClientService = apiClientService;
+  constructor(private _apiClientService: ApiClientService) {
   }
 
   ngOnInit() {

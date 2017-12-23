@@ -1,7 +1,0 @@
-query NameResolver($names: [name!]!) {
-  nameResolver(names: $names) {
-    responses {
-      total
-    }
-  }
-}

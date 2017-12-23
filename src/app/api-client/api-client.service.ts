@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Apollo} from 'apollo-angular';
-import {NameStringsQuery, NameStringsQueryVariables} from '../graphql/OperationResultTypes';
+import {
+  NameResolverQuery, NameResolverQueryVariables, NameStringsQuery,
+  NameStringsQueryVariables, name
+} from './OperationResultTypes';
 import gql from 'graphql-tag';
 import 'rxjs/add/operator/map';
 import {NameStringEntry} from './name-string-entry';
@@ -25,6 +28,37 @@ export class ApiClientService {
       }
     }`;
 
+  private NAME_RESOLVER_QUERY = gql`
+    query NameResolver($names: [name!]!) {
+      nameResolver(names: $names) {
+        responses {
+          suppliedInput
+          results {
+            name {
+              value
+            }
+            canonicalName {
+              value
+            }
+            classification {
+              path
+            }
+            acceptedName {
+              name {
+                value
+              }
+            }
+            matchType {
+              kind
+              score
+            }
+          }
+          total
+        }
+      }
+    }
+  `;
+
   constructor(apollo: Apollo) {
     this._apollo = apollo;
   }
@@ -44,6 +78,15 @@ export class ApiClientService {
           x.classification.path);
       });
     });
+  }
+
+  resolveNames(names: string[]) {
+    console.log('resolving names: ' + names);
+    const namesVar = names.map(n => ({value: n}));
+    return this._apollo.query<NameResolverQuery, NameResolverQueryVariables>({
+      query: this.NAME_RESOLVER_QUERY,
+      variables: { names: namesVar }
+    }).map(({data}) => data.nameResolver.responses);
   }
 
 }
