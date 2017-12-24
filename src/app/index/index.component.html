@@ -1,7 +1,23 @@
 <main class="container" role="main">
   <div class="row">
-    <p>
-      index should be here
-    </p>
+    <div class="col-lg-8">
+      <div class="input-group">
+        <input [(ngModel)]="searchText" [maxlength]="3" type="text" class="form-control"
+               placeholder="First letters for index..."
+               (input)="updateCurrentTriplets()">
+        <span class="input-group-btn">
+      </span>
+      </div>
+    </div>
+  </div>
+
+  <hr/>
+
+  <div class="row">
+    <div class="col-sm-1" *ngFor="let currentTriplet of currentTriplets" style="font-family: monospace">
+      <a href="{{'/name-strings?search=' + currentTriplet}}">
+        {{currentTriplet}}
+      </a>
+    </div>
   </div>
 </main>
