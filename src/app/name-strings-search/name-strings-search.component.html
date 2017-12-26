@@ -12,12 +12,12 @@
   </div>
 
   <div class="row">
-    <div class="col-sm-8 blog-main">
+    <div class="col-sm blog-main">
 
       <div *ngFor="let result of results">
         <hr/>
         <div class="blog-post">
-          <h5 class="blog-post-title">{{result.name}}</h5>
+          <h5 class="blog-post-title">{{result.name}} [{{result.dataSourceTitle}}]</h5>
           <h6>Canonical name: {{result.canonicalName}}</h6>
           <p *ngIf="result.classificationPath">Classification path: {{result.classificationPath}}</p>
         </div>

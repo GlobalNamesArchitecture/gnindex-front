@@ -18,6 +18,9 @@ export class ApiClientService {
           id
           value
         }
+        dataSource {
+          title
+        }
         canonicalName {
           id
           value
@@ -75,7 +78,8 @@ export class ApiClientService {
         return new NameStringEntry(
           x.name.value,
           x.canonicalName.value,
-          x.classification.path);
+          x.classification.path,
+          x.dataSource.title);
       });
     });
   }
