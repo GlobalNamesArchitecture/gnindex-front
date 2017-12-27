@@ -5,7 +5,6 @@ import {
 } from './OperationResultTypes';
 import gql from 'graphql-tag';
 import 'rxjs/add/operator/map';
-import {NameStringEntry} from './name-string-entry';
 
 @Injectable()
 export class ApiClientService {
@@ -72,15 +71,7 @@ export class ApiClientService {
       variables: {
         searchTerm: searchText
       }
-    }).map(({data}) => {
-      return data.nameStrings.map((x) => {
-        return new NameStringEntry(
-          x.name.value,
-          x.canonicalName.value,
-          x.classification.path,
-          x.dataSource.title);
-      });
-    });
+    }).map(({data}) => data.nameStrings);
   }
 
   resolveNames(names: string[]) {

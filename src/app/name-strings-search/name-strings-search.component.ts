@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiClientService} from '../api-client/api-client.service';
-import {NameStringEntry} from '../api-client/name-string-entry';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
 @Component({
@@ -12,12 +11,14 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 export class NameStringsSearchComponent implements OnInit {
   searchParamName = 'search';
   searchText = '';
-  results: Array<NameStringEntry> = [];
+  results = [];
   resultIsFetched = false;
+  apiClientService: ApiClientService;
 
-  constructor(private _apiClientService: ApiClientService,
+  constructor(apiClientService: ApiClientService,
               private _activatedRoute: ActivatedRoute,
               private _router: Router) {
+    this.apiClientService = apiClientService;
   }
 
   ngOnInit() {
@@ -36,8 +37,8 @@ export class NameStringsSearchComponent implements OnInit {
   }
 
   update() {
-    this._apiClientService.searchNameStrings(this.searchText)
-      .subscribe((nses: Array<NameStringEntry>) => {
+    this.apiClientService.searchNameStrings(this.searchText)
+      .subscribe((nses) => {
         this.results = nses.slice(0, 30);
         this.resultIsFetched = true;
         console.log('name-strings results:')
