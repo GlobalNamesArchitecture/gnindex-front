@@ -16,9 +16,9 @@ export type NameStringsQuery = {
       id: string,
       value: string,
     },
-    dataSource:  {
+    dataSources:  Array< {
       title: string,
-    },
+    } >,
     canonicalName:  {
       id: string,
       value: string,

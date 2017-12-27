@@ -17,11 +17,16 @@
       <div *ngFor="let result of results">
         <hr/>
         <div class="blog-post">
-          <h5 class="blog-post-title">{{result.name.value}} [{{result.dataSource.title}}]</h5>
+          <h5 class="blog-post-title">{{result.name.value}}</h5>
           <h6>Canonical name: {{result.canonicalName.value}}</h6>
           <p *ngIf="result.classification.path">
             Classification path: {{apiClientService.formatClassificationPath(result.classification)}}
           </p>
+
+          <h6>Data Sources</h6>
+          <ul>
+            <li *ngFor="let dataSource of result.dataSources">{{dataSource.title}}</li>
+          </ul>
         </div>
       </div>
 

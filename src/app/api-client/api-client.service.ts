@@ -16,7 +16,7 @@ export class ApiClientService {
           id
           value
         }
-        dataSource {
+        dataSources {
           title
         }
         canonicalName {
