@@ -41,7 +41,7 @@ export class NameStringsSearchComponent implements OnInit {
       .subscribe((nses) => {
         this.results = nses.slice(0, 30);
         this.resultIsFetched = true;
-        console.log('name-strings results:')
+        console.log('name-strings results:');
         console.log(this.results);
       });
   }
