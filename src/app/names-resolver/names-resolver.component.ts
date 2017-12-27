@@ -9,10 +9,12 @@ import {ApiClientService} from '../api-client/api-client.service';
 })
 export class NamesResolverComponent implements OnInit {
   searchText = '';
-
   responses = [];
+  apiClientService: ApiClientService;
 
-  constructor(private _apiClientService: ApiClientService) { }
+  constructor(apiClientService: ApiClientService) {
+    this.apiClientService = apiClientService;
+  }
 
   ngOnInit() {
   }
@@ -20,7 +22,7 @@ export class NamesResolverComponent implements OnInit {
   search() {
     const names = this.searchText.split('\n')
                       .filter(x => x.length > 0);
-    this._apiClientService.resolveNames(names)
+    this.apiClientService.resolveNames(names)
         .subscribe((responses) => {
           this.responses = responses;
           console.log(this.responses);

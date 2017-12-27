@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Apollo} from 'apollo-angular';
 import {
-  NameResolverQuery, NameResolverQueryVariables, NameStringsQuery,
-  NameStringsQueryVariables, name
+  NameResolverQuery, NameResolverQueryVariables, NameStringsQuery, NameStringsQueryVariables
 } from './OperationResultTypes';
 import gql from 'graphql-tag';
 import 'rxjs/add/operator/map';
@@ -91,6 +90,13 @@ export class ApiClientService {
       query: this.NAME_RESOLVER_QUERY,
       variables: { names: namesVar }
     }).map(({data}) => data.nameResolver.responses);
+  }
+
+  formatClassificationPath(classification: any) {
+    if (!classification || !classification.path) {
+      return null;
+    }
+    return classification.path.replace(/\|/gi, ' > ');
   }
 
 }
