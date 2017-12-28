@@ -14,7 +14,7 @@ export class ApiClientService {
       nameStrings(searchTerm: $searchTerm, page: $page, perPage: $perPage) {
         page
         perPage
-        totalPages
+        resultsCount
         results {
           name {
             id
@@ -62,21 +62,20 @@ export class ApiClientService {
           total
         }
       }
-    }
-  `;
+    }`;
 
   constructor(apollo: Apollo) {
     this._apollo = apollo;
   }
 
-  searchNameStrings(searchText: string, pageNumber: number) {
-    console.log('searchText: ' + searchText);
+  searchNameStrings(searchText: string, pageNumber: number, itemsPerPage: number) {
+    console.log(`searchText: ${searchText}, pageNumber: ${pageNumber}`);
     return this._apollo.query<NameStringsQuery, NameStringsQueryVariables>({
       query: this.NAME_STRINGS_QUERY,
       variables: {
         searchTerm: searchText,
-        page: pageNumber,
-        perPage: 30
+        page: pageNumber - 1,
+        perPage: itemsPerPage
       }
     }).map(({data}) => data.nameStrings);
   }

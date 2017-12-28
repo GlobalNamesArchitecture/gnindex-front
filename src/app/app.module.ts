@@ -15,7 +15,8 @@ import {NamesResolverComponent} from './names-resolver/names-resolver.component'
 import {BrowseComponent} from './browse/browse.component';
 import {GraphiqlComponent} from './graphiql/graphiql.component';
 import {HelpComponent} from './help/help.component';
-import {MarkdownModule} from "angular2-markdown";
+import {MarkdownModule} from 'angular2-markdown';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {MarkdownModule} from "angular2-markdown";
     ApolloModule,
     HttpLinkModule,
     HttpClientModule,
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

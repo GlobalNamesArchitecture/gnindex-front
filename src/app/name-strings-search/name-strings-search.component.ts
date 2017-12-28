@@ -1,21 +1,34 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {ApiClientService} from '../api-client/api-client.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/delay';
 
 @Component({
   selector: 'app-name-strings-search',
   templateUrl: './name-strings-search.component.html',
   styleUrls: ['./name-strings-search.component.scss'],
-  providers: [ApiClientService]
+  providers: [ApiClientService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NameStringsSearchComponent implements OnInit {
+  itemsPerPage = 10;
+
   searchParamName = 'search';
   pageNumberParamName = 'pn';
+
   searchText = '';
-  pageNumber = 0;
   response = {};
   resultIsFetched = false;
+  pageNumber = 1;
+  total: number;
+  loading: boolean;
+
   apiClientService: ApiClientService;
+  results: Observable<any[]>;
 
   constructor(apiClientService: ApiClientService,
               private _activatedRoute: ActivatedRoute,
@@ -26,9 +39,9 @@ export class NameStringsSearchComponent implements OnInit {
   ngOnInit() {
     this._activatedRoute.queryParams.subscribe((params: Params) => {
       this.searchText = params[this.searchParamName];
-      this.pageNumber = +params[this.pageNumberParamName];
+      this.pageNumber = +(params[this.pageNumberParamName] || 1);
       if (this.searchText && this.searchText.length > 0) {
-        this.update();
+        this.update(this.pageNumber);
       }
     });
   }
@@ -39,13 +52,19 @@ export class NameStringsSearchComponent implements OnInit {
     this._router.navigate(['.'], {queryParams: queryParams});
   }
 
-  update() {
-    this.apiClientService.searchNameStrings(this.searchText, this.pageNumber)
-      .subscribe((response) => {
-        this.response = response;
-        this.resultIsFetched = true;
-        console.log('name-strings results:');
-        console.log(this.response);
-      });
+  update(page: number) {
+    this.loading = true;
+    this.apiClientService.searchNameStrings(this.searchText, page, this.itemsPerPage)
+        .subscribe((response) => {
+          this.loading = false;
+          this.pageNumber = page;
+          this.response = response;
+          this.total = this.response['resultsCount'];
+          this.resultIsFetched = true;
+          this.results = Observable.of(this.response['results']);
+          console.log('name-strings results:');
+          console.log(this.response);
+          console.log(this.results);
+        });
   }
 }

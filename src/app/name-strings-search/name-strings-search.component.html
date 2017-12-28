@@ -14,7 +14,10 @@
   <div class="row">
     <div class="col-sm blog-main">
 
-      <div *ngFor="let result of response.results">
+      <div *ngFor="let result of results | async | paginate: { id: 'server',
+                                                               itemsPerPage: itemsPerPage,
+                                                               currentPage: pageNumber,
+                                                               totalItems: total }">
         <hr/>
         <div class="blog-post">
           <h5 class="blog-post-title">{{result.name.value}}</h5>
@@ -30,27 +33,15 @@
         </div>
       </div>
 
-      <div *ngIf="resultIsFetched && response.results.length == 0">
+      <div *ngIf="resultIsFetched && response['results'].length == 0">
         <hr/>
         <p>
           Alas, there are no results for "{{searchText}}". Try another one...
         </p>
       </div>
 
-      <nav *ngIf="resultIsFetched && response.results.length > 0" class="blog-pagination">
-        <ul class="pagination">
-          <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1">Previous</a>
-          </li>
-          <li class="page-item active"><a class="page-link" href="#">1</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-          </li>
-        </ul>
+      <nav *ngIf="resultIsFetched && response['results'].length > 0" class="blog-pagination">
+        <pagination-controls (pageChange)="update($event)" id="server"></pagination-controls>
       </nav>
     </div>
   </div>
