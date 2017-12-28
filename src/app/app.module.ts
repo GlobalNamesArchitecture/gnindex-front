@@ -12,7 +12,7 @@ import {InMemoryCache} from 'apollo-cache-inmemory';
 import {NameStringsSearchComponent} from './name-strings-search/name-strings-search.component';
 import {FormsModule} from '@angular/forms';
 import {NamesResolverComponent} from './names-resolver/names-resolver.component';
-import {IndexComponent} from './index/index.component';
+import {BrowseComponent} from './browse/browse.component';
 import {GraphiqlComponent} from './graphiql/graphiql.component';
 import {HelpComponent} from './help/help.component';
 import {MarkdownModule} from "angular2-markdown";
@@ -23,7 +23,7 @@ import {MarkdownModule} from "angular2-markdown";
     AppComponent,
     NameStringsSearchComponent,
     NamesResolverComponent,
-    IndexComponent,
+    BrowseComponent,
     GraphiqlComponent,
     HelpComponent
   ],
