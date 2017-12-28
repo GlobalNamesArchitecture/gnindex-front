@@ -10,8 +10,10 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 })
 export class NameStringsSearchComponent implements OnInit {
   searchParamName = 'search';
+  pageNumberParamName = 'pn';
   searchText = '';
-  results = [];
+  pageNumber = 0;
+  response = {};
   resultIsFetched = false;
   apiClientService: ApiClientService;
 
@@ -24,6 +26,7 @@ export class NameStringsSearchComponent implements OnInit {
   ngOnInit() {
     this._activatedRoute.queryParams.subscribe((params: Params) => {
       this.searchText = params[this.searchParamName];
+      this.pageNumber = +params[this.pageNumberParamName];
       if (this.searchText && this.searchText.length > 0) {
         this.update();
       }
@@ -37,12 +40,12 @@ export class NameStringsSearchComponent implements OnInit {
   }
 
   update() {
-    this.apiClientService.searchNameStrings(this.searchText)
-      .subscribe((nses) => {
-        this.results = nses.slice(0, 30);
+    this.apiClientService.searchNameStrings(this.searchText, this.pageNumber)
+      .subscribe((response) => {
+        this.response = response;
         this.resultIsFetched = true;
         console.log('name-strings results:');
-        console.log(this.results);
+        console.log(this.response);
       });
   }
 }
