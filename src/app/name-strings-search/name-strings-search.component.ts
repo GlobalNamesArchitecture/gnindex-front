@@ -54,17 +54,18 @@ export class NameStringsSearchComponent implements OnInit {
 
   update(page: number) {
     this.loading = true;
-    this.apiClientService.searchNameStrings(this.searchText, page, this.itemsPerPage)
-        .subscribe((response) => {
-          this.loading = false;
-          this.pageNumber = page;
-          this.response = response;
-          this.total = this.response['resultsCount'];
-          this.resultIsFetched = true;
-          this.results = Observable.of(this.response['results']);
-          console.log('name-strings results:');
-          console.log(this.response);
-          console.log(this.results);
-        });
+    this.results = this.apiClientService
+      .searchNameStrings(this.searchText, page, this.itemsPerPage)
+      .map((response) => {
+        this.loading = false;
+        this.pageNumber = page;
+        this.response = response;
+        this.total = this.response['resultsCount'];
+        this.resultIsFetched = true;
+        console.log('name-strings results:');
+        console.log(this.response);
+        console.log(this.results);
+        return this.response['results'];
+      });
   }
 }
