@@ -1,20 +1,22 @@
 <main class="container" role="main">
   <div class="row">
-    <a *ngFor="let letter of letters" (click)="selectLetter(letter)"
-       class="selected-link"
-       style="padding-left: 1.0em;font-family: monospace;">
+    <a *ngFor="let letter of letters" class="selected-link"
+       style="padding-left: 1.0em; font-family: monospace;"
+       (mouseenter)="selectLetter(letter)">
       {{letter}}
     </a>
   </div>
 
   <hr/>
 
-  <div class="row">
-    <div class="col-lg-1" *ngFor="let currentTriplet of currentTriplets"
-         style="font-family: monospace">
-      <a href="{{'/name-strings?search=' + currentTriplet}}">
-        {{currentTriplet}}
+  <div class="row" *ngFor="let currentTripletRow of currentTripletsRows">
+    <div style="font-family: monospace; padding: 0.2em;" *ngFor="let currentTriplet of currentTripletRow">
+      <a *ngIf="currentTriplet.active" href="{{nameStringRequest(currentTriplet.value)}}">
+        {{currentTriplet.value}}
       </a>
+      <span *ngIf="!currentTriplet.active" style="opacity: 0.5">
+        {{currentTriplet.value}}
+      </span>
     </div>
   </div>
 </main>

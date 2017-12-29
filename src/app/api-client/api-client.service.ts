@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ApiClientService {
-  private _apollo: Apollo;
+  _apollo: Apollo;
   private NAME_STRINGS_QUERY = gql`
     query NameStrings($searchTerm: String!, $page: Int, $perPage: Int) {
       nameStrings(searchTerm: $searchTerm, page: $page, perPage: $perPage) {

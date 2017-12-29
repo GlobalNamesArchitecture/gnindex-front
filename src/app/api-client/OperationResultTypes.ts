@@ -8,25 +8,32 @@ export type name = {
 
 export type NameStringsQueryVariables = {
   searchTerm: string,
+  page?: number | null,
+  perPage?: number | null,
 };
 
 export type NameStringsQuery = {
-  nameStrings:  Array< {
-    name:  {
-      id: string,
-      value: string,
-    },
-    dataSources:  Array< {
-      title: string,
+  nameStrings:  {
+    page: number,
+    perPage: number,
+    resultsCount: number,
+    results:  Array< {
+      name:  {
+        id: string,
+        value: string,
+      },
+      canonicalName:  {
+        id: string,
+        value: string,
+      } | null,
+      dataSources:  Array< {
+        title: string,
+      } >,
+      classification:  {
+        path: string | null,
+      },
     } >,
-    canonicalName:  {
-      id: string,
-      value: string,
-    } | null,
-    classification:  {
-      path: string | null,
-    },
-  } >,
+  },
 };
 
 export type NameResolverQueryVariables = {
@@ -60,4 +67,15 @@ export type NameResolverQuery = {
       total: number,
     } >,
   },
+};
+
+export type NameBrowserTripletsQueryVariables = {
+  letter: string,
+};
+
+export type NameBrowserTripletsQuery = {
+  nameBrowser_triplets:  Array< {
+    value: string,
+    active: boolean,
+  } >,
 };
