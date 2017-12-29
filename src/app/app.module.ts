@@ -17,6 +17,7 @@ import {GraphiqlComponent} from './graphiql/graphiql.component';
 import {HelpComponent} from './help/help.component';
 import {MarkdownModule} from 'angular2-markdown';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {NotFoundComponent} from './not-found/not-found.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     NamesResolverComponent,
     BrowseComponent,
     GraphiqlComponent,
-    HelpComponent
+    HelpComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

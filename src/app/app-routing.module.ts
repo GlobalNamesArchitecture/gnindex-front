@@ -5,13 +5,16 @@ import {NameStringsSearchComponent} from './name-strings-search/name-strings-sea
 import {BrowseComponent} from './browse/browse.component';
 import {GraphiqlComponent} from './graphiql/graphiql.component';
 import {HelpComponent} from './help/help.component';
+import {NotFoundComponent} from "./not-found/not-found.component";
 
 const routes: Routes = [
   {path: '', component: NameStringsSearchComponent},
   {path: 'resolver', component: NamesResolverComponent},
   {path: 'browse', component: BrowseComponent},
   {path: 'graphiql', component: GraphiqlComponent},
-  {path: 'help', component: HelpComponent}
+  {path: 'help', component: HelpComponent},
+  {path: '404', component: NotFoundComponent},
+  {path: '**', redirectTo: '/404'}
 ];
 
 @NgModule({
