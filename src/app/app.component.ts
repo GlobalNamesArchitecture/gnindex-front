@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiClientService} from './api-client/api-client.service';
 
 @Component({
   selector: 'app-root',

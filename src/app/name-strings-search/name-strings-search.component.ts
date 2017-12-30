@@ -17,7 +17,7 @@ import 'rxjs/add/operator/delay';
 export class NameStringsSearchComponent implements OnInit {
   itemsPerPage = 10;
 
-  searchParamName = 'search';
+  searchParamName = 'q';
   pageNumberParamName = 'pn';
 
   searchText = '';
@@ -49,7 +49,10 @@ export class NameStringsSearchComponent implements OnInit {
   search() {
     const queryParams: Params = Object.assign({}, this._activatedRoute.snapshot.queryParams);
     queryParams[this.searchParamName] = this.searchText;
-    this._router.navigate(['.'], {queryParams: queryParams});
+    this._router.navigate(
+      [this._activatedRoute.snapshot.url.join('/')],
+      {queryParams: queryParams}
+    );
   }
 
   update(page: number) {

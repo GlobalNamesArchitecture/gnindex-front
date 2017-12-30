@@ -18,11 +18,13 @@ import {HelpComponent} from './help/help.component';
 import {MarkdownModule} from 'angular2-markdown';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {NotFoundComponent} from './not-found/not-found.component';
+import {HomeComponent} from './home/home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
     NameStringsSearchComponent,
     NamesResolverComponent,
     BrowseComponent,
