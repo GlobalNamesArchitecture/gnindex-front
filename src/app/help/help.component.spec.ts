@@ -1,6 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { HelpComponent } from './help.component';
+import {HelpComponent} from './help.component';
+import {MarkdownModule} from 'angular2-markdown';
 
 describe('HelpComponent', () => {
   let component: HelpComponent;
@@ -8,9 +9,9 @@ describe('HelpComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HelpComponent ]
-    })
-    .compileComponents();
+      declarations: [HelpComponent],
+      imports: [MarkdownModule.forRoot()]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,5 +22,10 @@ describe('HelpComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should contain help text', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('markdown').attributes.path.value).toEqual('/assets/help.md');
   });
 });
