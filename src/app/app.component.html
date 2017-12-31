@@ -2,7 +2,7 @@
   <div class="grid">
     <div class="unit one-quarter center-on-mobiles">
       <div class="logo">
-        <a href="/">
+        <a [routerLink]="'/'">
           <span class="sr-only">GlobalNames</span>
           <img src="assets/img/gna-logo.svg" width="100" alt="GNA Logo">
         </a>
@@ -19,7 +19,7 @@
         <li>
           <a [routerLink]="'/graphiql'">GraphiQL</a>
         </li>
-        <li>
+        <li routerLinkActive="current">
           <a [routerLink]="'/help'">Help</a>
         </li>
       </ul>
