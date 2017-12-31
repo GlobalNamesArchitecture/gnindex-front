@@ -1,15 +1,48 @@
-<header>
-  <div class="blog-masthead">
-    <div class="container">
-      <nav class="nav">
-        <a class="nav-link" routerLinkActive="active" [routerLink]="'/search'">Name strings</a>
-        <a class="nav-link" routerLinkActive="active" [routerLink]="'/resolver'">Resolver</a>
-        <a class="nav-link" routerLinkActive="active" [routerLink]="'/browse'">Browse</a>
-        <a class="nav-link" routerLinkActive="active" [routerLink]="'/graphiql'">GraphiQL</a>
-        <a class="nav-link" routerLinkActive="active" [routerLink]="'/help'">Help</a>
-      </nav>
+<header role="banner">
+  <div class="grid">
+    <div class="unit one-quarter center-on-mobiles">
+      <div class="logo">
+        <a href="/">
+          <span class="sr-only">GlobalNames</span>
+          <img src="assets/img/gna-logo.svg" width="100" alt="GNA Logo">
+        </a>
+      </div>
     </div>
+    <nav class="main-nav unit three-quarters hide-on-mobiles">
+      <ul>
+        <li routerLinkActive="current">
+          <a [routerLink]="'/search'">Search</a>
+        </li>
+        <li>
+          <a [routerLink]="'/browse'">Browse</a>
+        </li>
+        <li>
+          <a [routerLink]="'/graphiql'">GraphiQL</a>
+        </li>
+        <li>
+          <a [routerLink]="'/help'">Help</a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </header>
 
 <router-outlet></router-outlet>
+
+<footer role="contentinfo">
+  <div class="grid" style="vertical-align: middle">
+    <div class="unit one-third center-on-mobiles">
+      <p>
+        <a href="https://creativecommons.org/publicdomain/zero/1.0/">
+          <img src="http://globalnames.org/img/cc0.png" width="80" alt="Creative Commons 0">
+        </a>
+        The content of this<br>website is in public domain
+      </p>
+    </div>
+    <div class="unit one-third center-on-mobiles">
+      <p>
+        Powered by <a href="https://angular.io/">Angular</a>
+      </p>
+    </div>
+  </div>
+</footer>
