@@ -1,49 +1,39 @@
-<main role="main" class="container">
-
-  <div class="col-lg-8">
-    <div class="input-group">
-      <input [(ngModel)]="searchText" type="text" class="form-control"
-             placeholder="Search..." aria-label="Search..."
-             (input)="resultIsFetched = false">
-      <span class="input-group-btn">
-        <button class="btn btn-secondary" type="button" (click)="search()">Go!</button>
-      </span>
-    </div>
+<section class="features">
+  <div class="grid">
+    <input [(ngModel)]="searchText" type="text" class="form-control"
+           placeholder="Search..." aria-label="Search..."
+           (input)="resultIsFetched = false"
+           (keyup.enter)="search()">
   </div>
+</section>
 
-  <div class="row">
-    <div class="col-sm blog-main">
+<section class="news">
+  <div class="grid">
+    <div class="unit four-fifths">
+      <article *ngIf="resultIsFetched && response['results'].length == 0">
+        <p>Alas, there are no results for "{{searchText}}". Try another one...</p>
+      </article>
 
-      <div *ngFor="let result of results | async | paginate: { id: 'server',
-                                                               itemsPerPage: itemsPerPage,
-                                                               currentPage: pageNumber,
-                                                               totalItems: total }">
-        <hr/>
-        <div class="blog-post">
-          <h5 class="blog-post-title">{{result.name.value}}</h5>
-          <h6>Canonical name: {{result.canonicalName.value}}</h6>
-          <p *ngIf="result.classification.path">
-            Classification path: {{apiClientService.formatClassificationPath(result.classification)}}
-          </p>
-
-          <h6>Data Sources</h6>
-          <ul>
-            <li *ngFor="let dataSource of result.dataSources">{{dataSource.title}}</li>
-          </ul>
-        </div>
-      </div>
-
-      <div *ngIf="resultIsFetched && response['results'].length == 0">
-        <hr/>
-        <p>
-          Alas, there are no results for "{{searchText}}". Try another one...
+      <article *ngFor="let result of results | async | paginate: { id: 'server',
+                                                                   itemsPerPage: itemsPerPage,
+                                                                   currentPage: pageNumber,
+                                                                   totalItems: total }">
+        <h3 class="blog-post-title">{{result.name.value}}</h3>
+        <p>Canonical name: {{result.canonicalName.value}}</p>
+        <p *ngIf="result.classification.path">
+          Classification path: {{apiClientService.formatClassificationPath(result.classification)}}
         </p>
-      </div>
+
+        <h4>Data Sources</h4>
+        <ul>
+          <li *ngFor="let dataSource of result.dataSources">{{dataSource.title}}</li>
+        </ul>
+      </article>
 
       <nav *ngIf="resultIsFetched && response['results'].length > 0" class="blog-pagination">
         <pagination-controls (pageChange)="update($event)" id="server"></pagination-controls>
       </nav>
     </div>
   </div>
+</section>
 
-</main>
