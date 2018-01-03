@@ -1,38 +1,42 @@
-<section class="features">
-  <div class="grid">
+<main role="main" class="container">
 
+  <div class="col-lg-8">
     <div class="input-group">
       <textarea [(ngModel)]="searchText" type="text" class="form-control"
                 placeholder="Search..." aria-label="Search..."
-                rows="5"
-                (keyup.enter)="search()">
+                rows="5">
       </textarea>
+      <span class="input-group-btn">
+        <button class="btn btn-secondary" type="button" (click)="search()">Go!</button>
+      </span>
     </div>
   </div>
-</section>
 
-<section class="news">
-  <div class="grid">
-    <div class="unit four-fifths">
+  <div class="row">
+    <div class="col-sm-8 blog-main">
 
       <div *ngFor="let response of responses">
-        <h1>{{response.suppliedInput}}</h1>
-
-        <article *ngFor="let result of response.results">
-          <h3>{{result.name.value}}</h3>
-          <span class="post-category">
-            <span class="label" *ngIf="result.acceptedName.name.value">
-              Accepted name: {{result.acceptedName.name.value}}
-            </span>
-          </span>
-
-          <p>Match type: {{result.matchType.kind}}, score: {{result.matchType.score}}</p>
-          <p>Canonical name: {{result.canonicalName.value}}</p>
-          <p *ngIf="result.classification.path">
-            Classification path: {{apiClientService.formatClassificationPath(result.classification)}}
-          </p>
-        </article>
+        <hr style="background-color:#333;"/>
+        <div class="blog-post">
+          <h4 class="blog-post-title">{{response.suppliedInput}}</h4>
+          <div *ngFor="let result of response.results">
+            <hr/>
+            <h5>{{result.name.value}}</h5>
+            <p>Match type: {{result.matchType.kind}}, score: {{result.matchType.score}}</p>
+            <p>Canonical name: {{result.canonicalName.value}}</p>
+            <p *ngIf="result.classification.path">
+              Classification path: {{apiClientService.formatClassificationPath(result.classification)}}
+            </p>
+            <p *ngIf="result.acceptedName.name.value">Accepted name: {{result.acceptedName.name.value}}</p>
+          </div>
+        </div>
       </div>
+
+      <nav *ngIf="false && responses.length > 0" class="blog-pagination">
+        <a class="btn btn-outline-primary" href="#"><</a>
+        <a class="btn btn-outline-secondary disabled" href="#">></a>
+      </nav>
     </div>
   </div>
-</section>
+
+</main>

@@ -8,7 +8,7 @@ import {ApiClientService} from '../api-client/api-client.service';
   providers: [ApiClientService]
 })
 export class NamesResolverComponent implements OnInit {
-  searchText = 'Homo sapiens\nSalinator solida';
+  searchText = '';
   responses = [];
   apiClientService: ApiClientService;
 
