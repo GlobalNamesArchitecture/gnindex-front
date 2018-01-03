@@ -4,10 +4,8 @@
     <div class="input-group">
       <input [(ngModel)]="searchText" type="text" class="form-control"
              placeholder="Search..." aria-label="Search..."
-             (input)="resultIsFetched = false">
-      <span class="input-group-btn">
-        <button class="btn btn-secondary" type="button" (click)="search()">Go!</button>
-      </span>
+             (input)="resultIsFetched = false"
+             (keyup.enter)="search()">
     </div>
   </div>
 
