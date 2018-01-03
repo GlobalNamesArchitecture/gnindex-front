@@ -36,7 +36,7 @@ export class ApiClientService {
 
   private NAME_RESOLVER_QUERY = gql`
     query NameResolver($names: [name!]!) {
-      nameResolver(names: $names) {
+      nameResolver(names: $names, bestMatchOnly: true) {
         responses {
           suppliedInput
           results {
