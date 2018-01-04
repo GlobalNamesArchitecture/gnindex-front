@@ -19,7 +19,9 @@
           </li>
         </ul>
 
-        <pagination-controls (pageChange)="update($event)" id="server" *ngIf="resultIsFetched"></pagination-controls>
+        <pagination-controls (pageChange)="update($event)" id="server"
+                             previousLabel="" nextLabel=""
+                             *ngIf="resultIsFetched"></pagination-controls>
       </div>
     </nav>
 
