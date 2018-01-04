@@ -1,34 +1,47 @@
-<main role="main" class="container">
-
-  <div class="col-lg-8">
-    <div class="input-group">
-      <input [(ngModel)]="searchText" type="text" class="form-control"
-             placeholder="Search..." aria-label="Search..."
-             (input)="resultIsFetched = false"
-             (keyup.enter)="search()">
-    </div>
-  </div>
-
+<div class="container-fluid">
   <div class="row">
-    <div class="col-sm blog-main">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          Scientific names
+        </h6>
+        <ul class="nav flex-column">
+          <li *ngFor="let result of results | async | paginate: { id: 'server',
+                                                                  itemsPerPage: itemsPerPage,
+                                                                  currentPage: pageNumber,
+                                                                  totalItems: total };
+                      let idx = index">
+            <a class="nav-link border-bottom"
+               (click)="selectItem(idx)"
+               [ngStyle]="{'text-decoration': idx === this.selectedNameIdx ? 'underline' : 'none'}">
+              {{result.name.value}}
+            </a>
+          </li>
+        </ul>
 
-      <div *ngFor="let result of results | async | paginate: { id: 'server',
-                                                               itemsPerPage: itemsPerPage,
-                                                               currentPage: pageNumber,
-                                                               totalItems: total }">
-        <hr/>
-        <div class="blog-post">
-          <h5 class="blog-post-title">{{result.name.value}}</h5>
-          <h6>Canonical name: {{result.canonicalName.value}}</h6>
-          <p *ngIf="result.classification.path">
-            Classification path: {{apiClientService.formatClassificationPath(result.classification)}}
-          </p>
+        <pagination-controls (pageChange)="update($event)" id="server" *ngIf="resultIsFetched"></pagination-controls>
+      </div>
+    </nav>
 
-          <h6>Data Sources</h6>
-          <ul>
-            <li *ngFor="let dataSource of result.dataSources">{{dataSource.title}}</li>
-          </ul>
-        </div>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <div>
+        <input [(ngModel)]="searchText" type="text" class="form-control mb-3"
+               placeholder="Search..." aria-label="Search..."
+               (input)="resultIsFetched = false"
+               (keyup.enter)="search()">
+      </div>
+
+      <div *ngIf="resultIsFetched">
+        <h4>{{selectedResult().name.value}}</h4>
+        <h6>Canonical name: {{selectedResult().canonicalName.value}}</h6>
+        <p *ngIf="selectedResult().classification.path">
+          Classification path: {{apiClientService.formatClassificationPath(selectedResult().classification)}}
+        </p>
+
+        <h6>Data Sources</h6>
+        <ul>
+          <li *ngFor="let dataSource of selectedResult().dataSources">{{dataSource.title}}</li>
+        </ul>
       </div>
 
       <div *ngIf="resultIsFetched && response['results'].length == 0">
@@ -37,11 +50,6 @@
           Alas, there are no results for "{{searchText}}". Try another one...
         </p>
       </div>
-
-      <nav *ngIf="resultIsFetched && response['results'].length > 0" class="blog-pagination">
-        <pagination-controls (pageChange)="update($event)" id="server"></pagination-controls>
-      </nav>
-    </div>
+    </main>
   </div>
-
-</main>
+</div>

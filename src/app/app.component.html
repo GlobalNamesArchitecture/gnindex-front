@@ -1,15 +1,24 @@
-<header>
-  <div class="blog-masthead">
-    <div class="container">
-      <nav class="nav">
-        <a class="nav-link" routerLinkActive="active" [routerLink]="'/search'">Search</a>
-        <a class="nav-link" routerLinkActive="active" [routerLink]="'/resolver'">Resolver</a>
-        <a class="nav-link" routerLinkActive="active" [routerLink]="'/browse'">Browse</a>
-        <a class="nav-link" routerLinkActive="active" [routerLink]="'/graphiql'">GraphiQL</a>
-        <a class="nav-link" routerLinkActive="active" [routerLink]="'/help'">Help</a>
-      </nav>
-    </div>
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">GNIndex</a>
+
+  <div class="navbar-nav px-3 nav-item">
+    <a class="text-nowrap nav-link" routerLinkActive="active" [routerLink]="'/search'">Search</a>
   </div>
-</header>
+  <div class="navbar-nav px-3 nav-item">
+    <a class="text-nowrap nav-link" routerLinkActive="active" [routerLink]="'/resolver'">Resolver</a>
+  </div>
+  <div class="navbar-nav px-3 nav-item">
+    <a class="text-nowrap nav-link" routerLinkActive="active" [routerLink]="'/browse'">Browse</a>
+  </div>
+  <div class="navbar-nav px-3 nav-item">
+    <a class="text-nowrap nav-link" routerLinkActive="active" [routerLink]="'/graphiql'">GraphiQL</a>
+  </div>
+  <div class="navbar-nav px-3 nav-item">
+    <a class="text-nowrap nav-link" routerLinkActive="active" [routerLink]="'/help'">Help</a>
+  </div>
+
+  <div class="w-100" style="visibility: hidden;"></div>
+
+</nav>
 
 <router-outlet></router-outlet>

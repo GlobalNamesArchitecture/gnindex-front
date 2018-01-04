@@ -15,7 +15,7 @@ import 'rxjs/add/operator/delay';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NameStringsSearchComponent implements OnInit {
-  itemsPerPage = 10;
+  itemsPerPage = 30;
 
   searchParamName = 'q';
   pageNumberParamName = 'pn';
@@ -26,6 +26,7 @@ export class NameStringsSearchComponent implements OnInit {
   pageNumber = 1;
   total: number;
   loading: boolean;
+  selectedNameIdx = 0;
 
   apiClientService: ApiClientService;
   results: Observable<any[]>;
@@ -47,7 +48,11 @@ export class NameStringsSearchComponent implements OnInit {
   }
 
   search() {
+    if (this.searchText === '') {
+      return;
+    }
     const queryParams: Params = Object.assign({}, this._activatedRoute.snapshot.queryParams);
+    this.selectedNameIdx = 0;
     queryParams[this.searchParamName] = this.searchText;
     this._router.navigate(
       [this._activatedRoute.snapshot.url.join('/')],
@@ -70,5 +75,14 @@ export class NameStringsSearchComponent implements OnInit {
         console.log(this.results);
         return this.response['results'];
       });
+  }
+
+  selectItem(idx) {
+    console.log(idx);
+    this.selectedNameIdx = idx;
+  }
+
+  selectedResult() {
+    return this.resultIsFetched ? this.response['results'][this.selectedNameIdx] : null;
   }
 }
