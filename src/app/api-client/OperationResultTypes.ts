@@ -31,6 +31,7 @@ export type NameStringsQuery = {
       } >,
       classification:  {
         path: string | null,
+        pathRanks: string | null,
       },
     } >,
   },

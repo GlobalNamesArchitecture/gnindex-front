@@ -29,6 +29,7 @@ export class ApiClientService {
           }
           classification {
             path
+            pathRanks
           }
         }
       }
@@ -93,7 +94,26 @@ export class ApiClientService {
     if (!classification || !classification.path) {
       return null;
     }
-    return classification.path.replace(/\|/gi, ' > ');
+    if (!classification.pathRanks) {
+      return classification.path.replace(/\|/gi, ' > ');
+    }
+    let result = '';
+    const classificationPathChunks = classification.path.split('|');
+    const classificationPathRanksChunks = classification.pathRanks.split('|');
+    console.log(classificationPathChunks);
+    console.log(classificationPathRanksChunks);
+
+    for (let idx = 0; idx < classificationPathChunks.length; idx++) {
+      const classificationPathRankChunk =
+        (idx < classificationPathRanksChunks.length && classificationPathRanksChunks[idx] !== '' ?
+          ' (' + classificationPathRanksChunks[idx] + ')' : '');
+      result += classificationPathChunks[idx] + classificationPathRankChunk;
+
+      if (idx < classificationPathRanksChunks.length - 1) {
+        result += ' > ';
+      }
+    }
+    return result;
   }
 
 }
