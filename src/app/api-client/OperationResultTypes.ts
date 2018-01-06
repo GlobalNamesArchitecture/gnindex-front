@@ -27,8 +27,14 @@ export type NameStringsQuery = {
         value: string,
       } | null,
       dataSources:  Array< {
+        id: number,
         title: string,
       } >,
+      acceptedName:  {
+        name:  {
+          value: string,
+        },
+      } | null,
       classification:  {
         path: string | null,
         pathRanks: string | null,

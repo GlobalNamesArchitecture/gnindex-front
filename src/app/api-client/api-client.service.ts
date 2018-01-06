@@ -25,7 +25,13 @@ export class ApiClientService {
             value
           }
           dataSources {
+            id
             title
+          }
+          acceptedName {
+            name {
+              value
+            }
           }
           classification {
             path
