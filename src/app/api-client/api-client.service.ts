@@ -102,18 +102,24 @@ export class ApiClientService {
     const classificationPathRanksChunks = classification.pathRanks.split('|');
     console.log(classificationPathChunks);
     console.log(classificationPathRanksChunks);
+    let chunksLen = 0;
 
     for (let idx = 0; idx < classificationPathChunks.length; idx++) {
-      const classificationPathRankChunk =
-        (idx < classificationPathRanksChunks.length && classificationPathRanksChunks[idx] !== '' ?
-          ' (' + classificationPathRanksChunks[idx] + ')' : '');
+      if (classificationPathChunks[idx] === '') {
+        continue;
+      }
+
+      const classificationPathRankChunk = classificationPathRanksChunks[idx] !== '' ?
+        ' (' + classificationPathRanksChunks[idx] + ')' : '';
       result += classificationPathChunks[idx] + classificationPathRankChunk;
 
       if (idx < classificationPathRanksChunks.length - 1) {
         result += ' > ';
       }
+
+      chunksLen++;
     }
-    return result;
+    return chunksLen > 1 ? result : null;
   }
 
 }
