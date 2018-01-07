@@ -33,6 +33,10 @@
                (keyup.enter)="search()">
       </div>
 
+      <div *ngIf="!resultIsFetched && !loading">
+        Help information should be here
+      </div>
+
       <div *ngIf="resultIsFetched">
         <h4>{{selectedResult().name.value}}</h4>
         <p *ngIf="selectedResult().classification.path">
