@@ -41,36 +41,6 @@ export class ApiClientService {
       }
     }`;
 
-  private NAME_RESOLVER_QUERY = gql`
-    query NameResolver($names: [name!]!) {
-      nameResolver(names: $names, bestMatchOnly: true) {
-        responses {
-          suppliedInput
-          results {
-            name {
-              value
-            }
-            canonicalName {
-              value
-            }
-            classification {
-              path
-            }
-            acceptedName {
-              name {
-                value
-              }
-            }
-            matchType {
-              kind
-              score
-            }
-          }
-          total
-        }
-      }
-    }`;
-
   constructor(apollo: Apollo) {
     this._apollo = apollo;
   }
@@ -85,15 +55,6 @@ export class ApiClientService {
         perPage: itemsPerPage
       }
     }).map(({data}) => data.nameStrings);
-  }
-
-  resolveNames(names: string[]) {
-    console.log('resolving names: ' + names);
-    const namesVar = names.map(n => ({value: n}));
-    return this._apollo.query<NameResolverQuery, NameResolverQueryVariables>({
-      query: this.NAME_RESOLVER_QUERY,
-      variables: {names: namesVar}
-    }).map(({data}) => data.nameResolver.responses);
   }
 
   formatClassificationPath(classification: any) {

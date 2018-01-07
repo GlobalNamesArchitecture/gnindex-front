@@ -78,7 +78,6 @@ export class NameStringsSearchComponent implements OnInit {
   }
 
   selectItem(idx) {
-    console.log(idx);
     this.selectedNameIdx = idx;
   }
 

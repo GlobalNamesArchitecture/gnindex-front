@@ -40,8 +40,6 @@
       <div *ngIf="resultIsFetched">
         <h4>{{selectedResult().name.value}}</h4>
         <div *ngIf="selectedResult().resultsPerDataSource.length > 0">
-          <h5>Records</h5>
-
           <div *ngFor="let resultPerDataSource of selectedResult().resultsPerDataSource">
             <h6>
               <a [href]="'datasource/' + resultPerDataSource.dataSource.id">
@@ -67,7 +65,7 @@
         </div>
       </div>
 
-      <div *ngIf="resultIsFetched && response['names'].length == 0">
+      <div *ngIf="resultIsFetched && response.names.length == 0">
         <hr/>
         <p>
           Alas, there are no results for "{{searchText}}". Try another one...

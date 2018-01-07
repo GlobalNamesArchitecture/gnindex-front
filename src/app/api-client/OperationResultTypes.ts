@@ -43,6 +43,17 @@ export type NameStringsQuery = {
   },
 };
 
+export type NameBrowserTripletsQueryVariables = {
+  letter: string,
+};
+
+export type NameBrowserTripletsQuery = {
+  nameBrowser_triplets:  Array< {
+    value: string,
+    active: boolean,
+  } >,
+};
+
 export type NameResolverQueryVariables = {
   names: Array< name >,
 };
@@ -55,9 +66,6 @@ export type NameResolverQuery = {
         name:  {
           value: string,
         },
-        canonicalName:  {
-          value: string,
-        } | null,
         classification:  {
           path: string | null,
         },
@@ -74,15 +82,4 @@ export type NameResolverQuery = {
       total: number,
     } >,
   },
-};
-
-export type NameBrowserTripletsQueryVariables = {
-  letter: string,
-};
-
-export type NameBrowserTripletsQuery = {
-  nameBrowser_triplets:  Array< {
-    value: string,
-    active: boolean,
-  } >,
 };
