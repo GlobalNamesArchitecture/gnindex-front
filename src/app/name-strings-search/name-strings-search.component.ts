@@ -73,7 +73,7 @@ export class NameStringsSearchComponent implements OnInit {
         console.log('name-strings results:');
         console.log(this.response);
         console.log(this.results);
-        return this.response['results'];
+        return this.response['names'];
       });
   }
 
@@ -83,6 +83,6 @@ export class NameStringsSearchComponent implements OnInit {
   }
 
   selectedResult() {
-    return this.resultIsFetched ? this.response['results'][this.selectedNameIdx] : null;
+    return this.response['names'][this.selectedNameIdx];
   }
 }

@@ -15,27 +15,27 @@ export class ApiClientService {
         page
         perPage
         resultsCount
-        results {
+        names {
           name {
             id
             value
           }
-          canonicalName {
-            id
-            value
-          }
-          dataSources {
-            id
-            title
-          }
-          acceptedName {
-            name {
-              value
+          resultsPerDataSource {
+            dataSource {
+              id
+              title
             }
-          }
-          classification {
-            path
-            pathRanks
+            results {
+              acceptedName {
+                name {
+                  value
+                }
+              }
+              classification {
+                path
+                pathRanks
+              }
+            }
           }
         }
       }
@@ -106,8 +106,6 @@ export class ApiClientService {
     let result = '';
     const classificationPathChunks = classification.path.split('|');
     const classificationPathRanksChunks = classification.pathRanks.split('|');
-    console.log(classificationPathChunks);
-    console.log(classificationPathRanksChunks);
     let chunksLen = 0;
 
     for (let idx = 0; idx < classificationPathChunks.length; idx++) {

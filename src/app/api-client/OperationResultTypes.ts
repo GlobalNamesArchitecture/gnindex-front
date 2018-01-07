@@ -17,28 +17,28 @@ export type NameStringsQuery = {
     page: number,
     perPage: number,
     resultsCount: number,
-    results:  Array< {
+    names:  Array< {
       name:  {
         id: string,
         value: string,
       },
-      canonicalName:  {
-        id: string,
-        value: string,
-      } | null,
-      dataSources:  Array< {
-        id: number,
-        title: string,
-      } >,
-      acceptedName:  {
-        name:  {
-          value: string,
+      resultsPerDataSource:  Array< {
+        dataSource:  {
+          id: number,
+          title: string,
         },
-      } | null,
-      classification:  {
-        path: string | null,
-        pathRanks: string | null,
-      },
+        results:  Array< {
+          acceptedName:  {
+            name:  {
+              value: string,
+            },
+          } | null,
+          classification:  {
+            path: string | null,
+            pathRanks: string | null,
+          },
+        } >,
+      } >,
     } >,
   },
 };

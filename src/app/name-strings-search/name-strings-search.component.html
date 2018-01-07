@@ -39,17 +39,35 @@
 
       <div *ngIf="resultIsFetched">
         <h4>{{selectedResult().name.value}}</h4>
-        <p *ngIf="selectedResult().classification.path">
-          Classification path: {{apiClientService.formatClassificationPath(selectedResult().classification)}}
-        </p>
+        <div *ngIf="selectedResult().resultsPerDataSource.length > 0">
+          <h5>Records</h5>
 
-        <h6>Data Sources</h6>
-        <ul>
-          <li *ngFor="let dataSource of selectedResult().dataSources">{{dataSource.title}}</li>
-        </ul>
+          <div *ngFor="let resultPerDataSource of selectedResult().resultsPerDataSource">
+            <h6>
+              <a [href]="'datasource/' + resultPerDataSource.dataSource.id">
+                {{resultPerDataSource.dataSource.title}}
+              </a>
+            </h6>
+
+            <div *ngFor="let result of resultPerDataSource.results"
+                 style="margin-left: .5em; margin-bottom: 1em;">
+              <ul>
+                <li>
+                  <div *ngIf="apiClientService.formatClassificationPath(result.classification)">
+                    {{apiClientService.formatClassificationPath(result.classification)}}
+                  </div>
+                  <div *ngIf="result.acceptedName.name.value != selectedResult().name.value">
+                    {{result.acceptedName.name.value}}
+                  </div>
+                  <a [href]="result.url || ''">record</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div *ngIf="resultIsFetched && response['results'].length == 0">
+      <div *ngIf="resultIsFetched && response['names'].length == 0">
         <hr/>
         <p>
           Alas, there are no results for "{{searchText}}". Try another one...
