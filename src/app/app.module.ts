@@ -19,6 +19,7 @@ import {MarkdownModule} from 'angular2-markdown';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {HomeComponent} from './home/home.component';
+import { DatasourceComponent } from './datasource/datasource.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import {HomeComponent} from './home/home.component';
     BrowseComponent,
     GraphiqlComponent,
     HelpComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    DatasourceComponent
   ],
   imports: [
     BrowserModule,

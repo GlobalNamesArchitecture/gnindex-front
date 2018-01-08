@@ -7,11 +7,13 @@ import {GraphiqlComponent} from './graphiql/graphiql.component';
 import {HelpComponent} from './help/help.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {HomeComponent} from './home/home.component';
+import {DatasourceComponent} from './datasource/datasource.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'search', component: NameStringsSearchComponent},
   {path: 'resolver', component: NamesResolverComponent},
+  {path: 'datasource/:id', component: DatasourceComponent},
   {path: 'browse', component: BrowseComponent},
   {path: 'graphiql', component: GraphiqlComponent},
   {path: 'help', component: HelpComponent},
