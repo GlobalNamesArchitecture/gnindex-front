@@ -59,6 +59,6 @@ export class BrowseComponent implements OnInit {
 
   nameStringRequest(triplet: string) {
     const nsString = triplet[0].toUpperCase() + triplet.substr(1).toLowerCase();
-    return `/?search=ns:${nsString}*`;
+    return `/search?q=ns:${nsString}*`;
   }
 }
