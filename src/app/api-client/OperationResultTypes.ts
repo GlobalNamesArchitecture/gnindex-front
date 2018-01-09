@@ -54,6 +54,18 @@ export type NameBrowserTripletsQuery = {
   } >,
 };
 
+export type DataSourceQueryVariables = {
+  dataSourceIds?: Array< number > | null,
+};
+
+export type DataSourceQuery = {
+  dataSourceById:  Array< {
+    id: number,
+    title: string,
+    description: string | null,
+  } >,
+};
+
 export type NameResolverQueryVariables = {
   names: Array< name >,
 };
