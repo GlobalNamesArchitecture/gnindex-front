@@ -65,7 +65,7 @@
         </div>
       </div>
 
-      <div *ngIf="resultIsFetched && response.names.length == 0">
+      <div *ngIf="resultIsFetched && response['names'].length == 0">
         <hr/>
         <p>
           Alas, there are no results for "{{searchText}}". Try another one...
