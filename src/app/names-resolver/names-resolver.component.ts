@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiClientService} from '../api-client/api-client.service';
-import {Observable} from "rxjs/Observable";
-import gql from "graphql-tag";
-import {NameResolverQuery, NameResolverQueryVariables} from "../api-client/OperationResultTypes";
-import {Apollo} from "apollo-angular";
+import gql from 'graphql-tag';
+import {NameResolverQuery, NameResolverQueryVariables} from '../api-client/OperationResultTypes';
+import {Apollo} from 'apollo-angular';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
 @Component({
   selector: 'app-names-resolver',
@@ -12,7 +12,7 @@ import {Apollo} from "apollo-angular";
   providers: [ApiClientService]
 })
 export class NamesResolverComponent implements OnInit {
-  searchText = 'Homo sapiens\nSalinator solida\nCanis lupus';
+  searchText = '';
   loading = false;
   resultIsFetched = false;
   responses = [];
@@ -48,11 +48,17 @@ export class NamesResolverComponent implements OnInit {
     }`;
 
   constructor(apiClientService: ApiClientService,
-              private _apollo: Apollo) {
+              private _apollo: Apollo,
+              private _activatedRoute: ActivatedRoute,
+              private _router: Router) {
     this.apiClientService = apiClientService;
   }
 
   ngOnInit() {
+    this._activatedRoute.queryParams.subscribe((params: Params) => {
+      console.log(params);
+      this.searchText = (params['names'] || '').split('|').filter(x => x.length > 0).join('\n');
+    });
   }
 
   search() {
@@ -66,6 +72,8 @@ export class NamesResolverComponent implements OnInit {
     this.searchingNames = [];
 
     const names = this.searchText.split('\n').filter(x => x.length > 0);
+    this._router.navigate(['/resolver'], {queryParams: {names: names.join('|')}});
+
     const namesVar = names.map(n => ({value: n}));
     console.log('resolving names: ');
     console.log(namesVar);

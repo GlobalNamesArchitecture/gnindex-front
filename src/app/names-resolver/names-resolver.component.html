@@ -25,19 +25,22 @@
     </nav>
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-      <div>
+      <div class="border-bottom">
         <textarea [(ngModel)]="searchText" type="text" class="form-control mb-3"
                   placeholder="Search..." aria-label="Search..."
                   rows="3"
-                  (keyup.enter)="search()"></textarea>
+                  (keyup.control.enter)="search()"></textarea>
       </div>
 
       <div *ngIf="!resultIsFetched && !loading">
-        Help information should be here
+        Resolve lists of scientific names against known sources. This service parses incoming names, executes exact or
+        fuzzy matching as required, and displays a confidence score for each match along with its identifier.
       </div>
 
       <div *ngIf="resultIsFetched">
-        <h4>{{selectedResult().suppliedInput}} [{{selectedResult().results[0].matchType.kind.toLowerCase()}}]</h4>
+        <h4>
+          {{selectedResult().suppliedInput}} <i>[{{selectedResult().results[0].matchType.kind.toLowerCase()}}]</i>
+        </h4>
         <div *ngIf="selectedResult().results[0].acceptedName.name.value != selectedResult().results[0].name.value">
           {{selectedResult().results[0].acceptedName.name.value}}
         </div>
