@@ -17,7 +17,9 @@ export class ApiClientService {
         resultsCount
         names {
           name {
-            id
+            value
+          }
+          canonicalName {
             value
           }
           resultsPerDataSource {

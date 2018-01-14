@@ -12,13 +12,14 @@ import 'rxjs/add/operator/delay';
   templateUrl: './name-strings-search.component.html',
   styleUrls: ['./name-strings-search.component.scss'],
   providers: [ApiClientService],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NameStringsSearchComponent implements OnInit {
   itemsPerPage = 30;
 
   searchParamName = 'q';
   pageNumberParamName = 'pn';
+  namesWithSameCanonicalName = [];
 
   searchText = '';
   response = {};
@@ -45,6 +46,7 @@ export class NameStringsSearchComponent implements OnInit {
         this.update(this.pageNumber);
       }
     });
+    this.selectItem(0);
   }
 
   search() {
@@ -52,7 +54,7 @@ export class NameStringsSearchComponent implements OnInit {
       return;
     }
     const queryParams: Params = Object.assign({}, this._activatedRoute.snapshot.queryParams);
-    this.selectedNameIdx = 0;
+    this.selectItem(0);
     queryParams[this.searchParamName] = this.searchText;
     this._router.navigate(
       [this._activatedRoute.snapshot.url.join('/')],
@@ -79,9 +81,25 @@ export class NameStringsSearchComponent implements OnInit {
 
   selectItem(idx) {
     this.selectedNameIdx = idx;
+    this.namesWithSameCanonicalName = [];
+
+    if (this.resultIsFetched) {
+      const result = this.response['names'][this.selectedNameIdx];
+      const query = `can:${result.canonicalName.value}`;
+      console.log('>>> searching for canonical name: ' + query);
+      this.apiClientService
+        .searchNameStrings(query, 1, this.itemsPerPage)
+        .subscribe((response) => {
+          this.namesWithSameCanonicalName = response['names'].map((r) => r['name'].value);
+          console.log(this.namesWithSameCanonicalName);
+        });
+    }
   }
 
   selectedResult() {
     return this.response['names'][this.selectedNameIdx];
+  }
+
+  enterPressed() {
   }
 }

@@ -134,6 +134,15 @@
 
       <div *ngIf="resultIsFetched">
         <h4>{{selectedResult().name.value}}</h4>
+
+        <h5>Similar Names</h5>
+        <ul>
+          <li *ngFor="let similarName of namesWithSameCanonicalName">
+            {{similarName}}
+          </li>
+        </ul>
+
+        <h5>Data Sources</h5>
         <div *ngIf="selectedResult().resultsPerDataSource.length > 0">
           <div *ngFor="let resultPerDataSource of selectedResult().resultsPerDataSource">
             <h6>

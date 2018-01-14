@@ -19,9 +19,11 @@ export type NameStringsQuery = {
     resultsCount: number,
     names:  Array< {
       name:  {
-        id: string,
         value: string,
       },
+      canonicalName:  {
+        value: string,
+      } | null,
       resultsPerDataSource:  Array< {
         dataSource:  {
           id: number,

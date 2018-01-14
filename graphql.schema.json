@@ -1458,6 +1458,18 @@
               "deprecationReason": null
             },
             {
+              "name": "canonicalName",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Name",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "resultsPerDataSource",
               "description": null,
               "args": [],
