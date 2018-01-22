@@ -1,5 +1,5 @@
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid" style="height: 85%">
+  <div class="row" style="height: 100%">
     <nav class="col-md-4 d-none d-md-block bg-light sidebar">
       <div class="sidebar-sticky">
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -18,10 +18,6 @@
             </a>
           </li>
         </ul>
-
-        <pagination-controls (pageChange)="update($event)" id="server"
-                             previousLabel="" nextLabel=""
-                             *ngIf="resultIsFetched"></pagination-controls>
       </div>
     </nav>
 
@@ -176,5 +172,19 @@
         </p>
       </div>
     </main>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 d-none d-md-block bg-light sidebar"
+         style="z-index: -1"></div>
+    <div class="col-md-8 ml-sm-auto col-lg-8 pt-3 px-4">
+      <footer class="footer">
+        <div class="container">
+          <pagination-controls (pageChange)="update($event)" id="server"
+                               previousLabel="" nextLabel=""
+                               *ngIf="resultIsFetched"></pagination-controls>
+        </div>
+      </footer>
+    </div>
   </div>
 </div>
