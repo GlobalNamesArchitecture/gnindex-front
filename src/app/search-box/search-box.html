@@ -22,8 +22,10 @@
          (keyup.control.enter)="multilineSearch(content)"
          (keyup.enter)="doSearch()"/>
   <div class="input-group-append">
-    <span class="input-group-text" (click)="openModal(content)">Multiline</span>
-    <span class="input-group-text" (click)="doSearch()">Go</span>
+    <span class="input-group-text" appOcticon="three-bars"
+          (click)="openModal(content)"></span>
+    <span class="input-group-text" appOcticon="search"
+          (click)="doSearch()"></span>
   </div>
 </div>
 

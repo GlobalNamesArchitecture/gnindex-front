@@ -22,6 +22,7 @@ import {HomeComponent} from './home/home.component';
 import {DatasourceComponent} from './datasource/datasource.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SearchBoxComponent} from './search-box/search-box';
+import {OcticonDirective} from './oction/OctionDirective';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {SearchBoxComponent} from './search-box/search-box';
     NotFoundComponent,
     DatasourceComponent,
     SearchBoxComponent,
+    OcticonDirective,
   ],
   imports: [
     BrowserModule,

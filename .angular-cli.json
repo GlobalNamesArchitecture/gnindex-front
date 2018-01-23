@@ -20,6 +20,7 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.css",
+        "../node_modules/octicons/build/build.css",
         "styles.scss"
       ],
       "scripts": [],
