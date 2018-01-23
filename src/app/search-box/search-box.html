@@ -1,0 +1,30 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Resolver</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <textarea [(ngModel)]="status.searchText" type="text" class="form-control mb-3"
+              placeholder="Search..." aria-label="Search..."
+              rows="15"
+              (keyup.control.enter)="doSearch()"></textarea>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Search click')">Search</button>
+  </div>
+</ng-template>
+
+<div class="input-group">
+  <input [(ngModel)]="status.searchText" type="text" class="form-control"
+         placeholder="Search..." aria-label="Search..."
+         (keyup.control.enter)="multilineSearch(content)"
+         (keyup.enter)="doSearch()"/>
+  <div class="input-group-append">
+    <span class="input-group-text" (click)="openModal(content)">Multiline</span>
+    <span class="input-group-text" (click)="doSearch()">Go</span>
+  </div>
+</div>
+
+<hr>

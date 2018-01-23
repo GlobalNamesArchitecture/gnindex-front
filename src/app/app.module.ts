@@ -19,8 +19,9 @@ import {MarkdownModule} from 'angular2-markdown';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {HomeComponent} from './home/home.component';
-import { DatasourceComponent } from './datasource/datasource.component';
-
+import {DatasourceComponent} from './datasource/datasource.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {SearchBoxComponent} from './search-box/search-box';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { DatasourceComponent } from './datasource/datasource.component';
     GraphiqlComponent,
     HelpComponent,
     NotFoundComponent,
-    DatasourceComponent
+    DatasourceComponent,
+    SearchBoxComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,8 @@ import { DatasourceComponent } from './datasource/datasource.component';
     HttpLinkModule,
     HttpClientModule,
     MarkdownModule.forRoot(),
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgbModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

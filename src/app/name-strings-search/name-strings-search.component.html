@@ -23,10 +23,7 @@
 
     <main role="main" class="col-md-8 ml-sm-auto col-lg-8 pt-3 px-4">
       <div>
-        <input [(ngModel)]="searchText" type="text" class="form-control mb-3"
-               placeholder="Search..." aria-label="Search..."
-               (input)="resultIsFetched = false"
-               (keyup.enter)="search()">
+        <app-search-box (search)="goSearch($event)"></app-search-box>
       </div>
 
       <div *ngIf="!resultIsFetched && !loading">

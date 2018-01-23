@@ -6,6 +6,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/delay';
+import {SearchBoxStatus} from '../search-box/search-box';
 
 @Component({
   selector: 'app-name-strings-search',
@@ -49,7 +50,8 @@ export class NameStringsSearchComponent implements OnInit {
     this.selectItem(0);
   }
 
-  search() {
+  goSearch(x: SearchBoxStatus) {
+    this.searchText = x.searchText;
     if (this.searchText === '') {
       return;
     }
@@ -98,8 +100,5 @@ export class NameStringsSearchComponent implements OnInit {
 
   selectedResult() {
     return this.response['names'][this.selectedNameIdx];
-  }
-
-  enterPressed() {
   }
 }
