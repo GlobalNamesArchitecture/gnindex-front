@@ -1,10 +1,14 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 export class SearchBoxStatus {
   closeResult = '';
   searchText = '';
+
+  isMultiline() {
+    return this.searchText.indexOf('\n') > 0;
+  }
 }
 
 @Component({
@@ -14,6 +18,7 @@ export class SearchBoxStatus {
 export class SearchBoxComponent {
   status = new SearchBoxStatus();
   @Output() search = new EventEmitter<SearchBoxStatus>();
+  @ViewChild('searchInput') searchInput;
 
   private static getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -29,17 +34,14 @@ export class SearchBoxComponent {
   }
 
   doSearch() {
-    console.log('hey');
     this.search.emit(this.status);
   }
 
   multilineSearch(content) {
-    console.log('enter pressed ' + content);
     this.openModal(content);
   }
 
   openModal(content) {
-    console.log('>>>>>>');
     this._modalService.open(content, {size: 'lg', windowClass: 'modal-xxl'})
       .result.then((result) => {
       this.status.closeResult = `Closed with: ${result}`;
@@ -48,5 +50,12 @@ export class SearchBoxComponent {
       this.status.closeResult = `Dismissed ${SearchBoxComponent.getDismissReason(reason)}`;
       console.log(this.status.closeResult);
     });
+  }
+
+  handleFocus(content) {
+    if (this.status.isMultiline()) {
+      this.openModal(content);
+      this.searchInput.nativeElement.blur();
+    }
   }
 }

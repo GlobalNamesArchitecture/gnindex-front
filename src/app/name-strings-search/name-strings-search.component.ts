@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {ApiClientService} from '../api-client/api-client.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
@@ -88,7 +88,7 @@ export class NameStringsSearchComponent implements OnInit {
     if (this.resultIsFetched) {
       const result = this.response['names'][this.selectedNameIdx];
       const query = `can:${result.canonicalName.value}`;
-      console.log('>>> searching for canonical name: ' + query);
+      console.log('searching for canonical name: ' + query);
       this.apiClientService
         .searchNameStrings(query, 1, this.itemsPerPage)
         .subscribe((response) => {
