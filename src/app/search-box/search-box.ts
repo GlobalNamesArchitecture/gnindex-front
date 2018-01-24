@@ -13,7 +13,8 @@ export class SearchBoxStatus {
 
 @Component({
   selector: 'app-search-box',
-  templateUrl: './search-box.html'
+  styleUrls: ['./search-box.scss'],
+  templateUrl: './search-box.html',
 })
 export class SearchBoxComponent {
   status = new SearchBoxStatus();
