@@ -1,15 +1,7 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-
-export class SearchBoxStatus {
-  closeResult = '';
-  searchText = '';
-
-  isMultiline() {
-    return this.searchText.indexOf('\n') > 0;
-  }
-}
+import {SearchStatus, SearchStatusService} from './search-box.service';
 
 @Component({
   selector: 'app-search-box',
@@ -17,9 +9,8 @@ export class SearchBoxStatus {
   templateUrl: './search-box.html',
 })
 export class SearchBoxComponent {
-  status = new SearchBoxStatus();
-  @Output() search = new EventEmitter<SearchBoxStatus>();
   @ViewChild('searchInput') searchInput;
+  status = new SearchStatus();
 
   private static getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -31,11 +22,14 @@ export class SearchBoxComponent {
     }
   }
 
-  constructor(private _modalService: NgbModal) {
+  constructor(private _modalService: NgbModal,
+              private _searchStatusService: SearchStatusService) {
   }
 
   doSearch() {
-    this.search.emit(this.status);
+    console.log('doing search:');
+    console.log(this.status);
+    this._searchStatusService.search(this.status);
   }
 
   multilineSearch(content) {

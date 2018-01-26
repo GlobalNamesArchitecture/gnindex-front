@@ -12,7 +12,8 @@
               (keyup.control.enter)="doSearch()"></textarea>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('Search click')">Search</button>
+    <button type="button" class="btn btn-outline-dark"
+            (click)="c('Search click'); doSearch();">Search</button>
   </div>
 </ng-template>
 

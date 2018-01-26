@@ -6,13 +6,13 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/delay';
-import {SearchBoxStatus} from '../search-box/search-box';
+import {SearchStatus, SearchStatusService} from '../search-box/search-box.service';
 
 @Component({
   selector: 'app-name-strings-search',
   templateUrl: './name-strings-search.component.html',
   styleUrls: ['./name-strings-search.component.scss'],
-  providers: [ApiClientService],
+  providers: [ApiClientService, SearchStatusService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NameStringsSearchComponent implements OnInit {
@@ -35,8 +35,12 @@ export class NameStringsSearchComponent implements OnInit {
 
   constructor(apiClientService: ApiClientService,
               private _activatedRoute: ActivatedRoute,
-              private _router: Router) {
+              private _router: Router,
+              private _searchStatusService: SearchStatusService) {
     this.apiClientService = apiClientService;
+    this._searchStatusService.searchStatus$.subscribe(searchStatus => {
+      this.goSearch(searchStatus);
+    });
   }
 
   ngOnInit() {
@@ -50,8 +54,8 @@ export class NameStringsSearchComponent implements OnInit {
     this.selectItem(0);
   }
 
-  goSearch(x: SearchBoxStatus) {
-    this.searchText = x.searchText;
+  goSearch(searchStatus: SearchStatus) {
+    this.searchText = searchStatus.searchText;
     if (this.searchText === '') {
       return;
     }
