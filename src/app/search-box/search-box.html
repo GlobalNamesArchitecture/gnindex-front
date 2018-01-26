@@ -25,10 +25,11 @@
          (focus)="handleFocus(content)"
          #searchInput />
   <div class="input-group-append">
-    <span class="input-group-text" appOcticon="three-bars"
-          (click)="openModal(content)"></span>
-    <span class="input-group-text" appOcticon="search"
-          (click)="doSearch()"></span>
+    <button class="input-group-text" appOcticon="three-bars"
+          (click)="openModal(content)"
+          [disabled]="status.isNameFilterRequest()"></button>
+    <button class="input-group-text" appOcticon="search"
+          (click)="doSearch()"></button>
   </div>
 </div>
 

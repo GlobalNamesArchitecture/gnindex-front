@@ -13,6 +13,10 @@ export class SearchStatus {
   isMultiline() {
     return this.searchText.indexOf('\n') > 0;
   }
+
+  isNameFilterRequest() {
+    return this.searchText.indexOf(':') > 0;
+  }
 }
 
 @Injectable()
