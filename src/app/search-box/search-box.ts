@@ -1,14 +1,15 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {SearchStatus, SearchStatusService} from './search-box.service';
+import {ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-search-box',
   styleUrls: ['./search-box.scss'],
   templateUrl: './search-box.html',
 })
-export class SearchBoxComponent {
+export class SearchBoxComponent implements OnInit {
   @ViewChild('searchInput') searchInput;
   status = new SearchStatus();
 
@@ -23,7 +24,14 @@ export class SearchBoxComponent {
   }
 
   constructor(private _modalService: NgbModal,
-              private _searchStatusService: SearchStatusService) {
+              private _searchStatusService: SearchStatusService,
+              private _activatedRoute: ActivatedRoute) {
+  }
+
+  ngOnInit(): void {
+    this._activatedRoute.queryParams.subscribe((params: Params) => {
+      this.status.searchText = params['q'];
+    });
   }
 
   doSearch() {
