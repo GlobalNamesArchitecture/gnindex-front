@@ -1,8 +1,20 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, Pipe, PipeTransform, ViewChild} from '@angular/core';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {SearchStatus, SearchStatusService} from './search-box.service';
 import {ActivatedRoute, Params} from '@angular/router';
+
+@Pipe({name: 'searchTextGetter'})
+export class SearchTextGetter implements PipeTransform {
+  transform(searchQuery: string): string {
+    const searchStatus = new SearchStatus(searchQuery);
+    if (searchStatus.isMultiline()) {
+      return `${searchStatus.chunks()[0]}... (multiline)`;
+    } else {
+      return searchStatus.searchText;
+    }
+  }
+}
 
 @Component({
   selector: 'app-search-box',

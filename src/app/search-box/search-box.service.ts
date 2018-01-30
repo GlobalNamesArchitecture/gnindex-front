@@ -10,12 +10,16 @@ export class SearchStatus {
     this.searchText = searchText;
   }
 
-  isMultiline() {
+  isMultiline(): boolean {
     return this.searchText.indexOf('\n') > 0;
   }
 
-  isNameFilterRequest() {
+  isNameFilterRequest(): boolean {
     return this.searchText.indexOf(':') > 0;
+  }
+
+  chunks(): string[] {
+    return this.searchText.split('\n');
   }
 }
 

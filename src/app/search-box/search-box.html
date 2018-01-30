@@ -6,7 +6,8 @@
     </button>
   </div>
   <div class="modal-body">
-    <textarea [(ngModel)]="status.searchText" type="text" class="form-control mb-3"
+    <textarea type="text" class="form-control mb-3"
+              [(ngModel)]="status.searchText"
               placeholder="Search..." aria-label="Search..."
               rows="15"
               (keyup.control.enter)="doSearch()"></textarea>
@@ -18,7 +19,9 @@
 </ng-template>
 
 <div class="input-group">
-  <input [(ngModel)]="status.searchText" type="text" class="form-control"
+  <input type="text" class="form-control"
+         [ngModel]="status.searchText | searchTextGetter"
+         (ngModelChange)="status.searchText = $event"
          placeholder="Search..." aria-label="Search..."
          (keyup.control.enter)="multilineSearch(content)"
          (keyup.enter)="doSearch()"
