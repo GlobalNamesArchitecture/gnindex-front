@@ -12,7 +12,7 @@ import {SearchStatus, SearchStatusService} from '../search-box/search-box.servic
   selector: 'app-name-strings-search',
   templateUrl: './name-strings-search.component.html',
   styleUrls: ['./name-strings-search.component.scss'],
-  providers: [ApiClientService, SearchStatusService],
+  providers: [ApiClientService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NameStringsSearchComponent implements OnInit {
@@ -55,6 +55,9 @@ export class NameStringsSearchComponent implements OnInit {
   }
 
   goSearch(searchStatus: SearchStatus) {
+    console.log('handling search:');
+    console.log(searchStatus);
+
     this.searchText = searchStatus.searchText;
     if (this.searchText === '') {
       return;

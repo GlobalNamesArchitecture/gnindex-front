@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    <nav class="col-md-4 d-none d-md-block bg-light sidebar"
+    <nav class="col-md-4 d-none d-md-block sidebar"
          [ngStyle]="{'visibility': this.resultIsFetched ? 'visible' : 'hidden'}">
       <div class="sidebar-sticky">
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -23,10 +23,6 @@
     </nav>
 
     <main role="main" class="col-md-8 ml-sm-auto col-lg-8 pt-3 px-4">
-      <div>
-        <app-search-box></app-search-box>
-      </div>
-
       <div *ngIf="!resultIsFetched && !loading">
 
         <h5>Search Options</h5>

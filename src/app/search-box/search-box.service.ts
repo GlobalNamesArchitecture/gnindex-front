@@ -11,14 +11,23 @@ export class SearchStatus {
   }
 
   isMultiline(): boolean {
+    if (this.searchText === undefined) {
+      return undefined;
+    }
     return this.searchText.indexOf('\n') > 0;
   }
 
   isNameFilterRequest(): boolean {
+    if (this.searchText === undefined) {
+      return undefined;
+    }
     return this.searchText.indexOf(':') > 0;
   }
 
   chunks(): string[] {
+    if (this.searchText === undefined) {
+      return undefined;
+    }
     return this.searchText.split('\n');
   }
 }

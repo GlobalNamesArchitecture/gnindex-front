@@ -1,24 +1,23 @@
-<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-  <a class="navbar-brand col-sm-3 col-md-4 mr-0" href="#">GNIndex</a>
+<nav class="navbar navbar-light sticky-top flex-md-nowrap p-0 border-bottom">
+  <a class="navbar-brand col-sm-3 col-md-4 mr-0" href="#" style="">
+    <img src="assets/img/gna-logo.svg" width="60em" />
+  </a>
 
-  <div class="navbar-nav px-3 nav-item">
-    <a class="text-nowrap nav-link" routerLinkActive="active" [routerLink]="'/search'">Search</a>
+  <div class="row" style="margin-right: auto">
+    <div class="navbar-nav px-3 nav-item">
+      <a class="text-nowrap nav-link" routerLinkActive="active" [routerLink]="'/search'">Search</a>
+    </div>
+    <div class="navbar-nav px-3 nav-item">
+      <a class="text-nowrap nav-link" routerLinkActive="active" [routerLink]="'/browse'">Browse</a>
+    </div>
+    <div class="navbar-nav px-3 nav-item">
+      <a class="text-nowrap nav-link" routerLinkActive="active" [routerLink]="'/graphiql'">GraphiQL</a>
+    </div>
+    <div class="navbar-nav px-3 nav-item">
+      <a class="text-nowrap nav-link" routerLinkActive="active" [routerLink]="'/help'">Help</a>
+    </div>
+    <app-search-box class="px-3 w-100" style="margin-top: 10px"></app-search-box>
   </div>
-  <div class="navbar-nav px-3 nav-item">
-    <a class="text-nowrap nav-link" routerLinkActive="active" [routerLink]="'/resolver'">Resolver</a>
-  </div>
-  <div class="navbar-nav px-3 nav-item">
-    <a class="text-nowrap nav-link" routerLinkActive="active" [routerLink]="'/browse'">Browse</a>
-  </div>
-  <div class="navbar-nav px-3 nav-item">
-    <a class="text-nowrap nav-link" routerLinkActive="active" [routerLink]="'/graphiql'">GraphiQL</a>
-  </div>
-  <div class="navbar-nav px-3 nav-item">
-    <a class="text-nowrap nav-link" routerLinkActive="active" [routerLink]="'/help'">Help</a>
-  </div>
-
-  <div class="w-100"></div>
-
 </nav>
 
 <router-outlet></router-outlet>

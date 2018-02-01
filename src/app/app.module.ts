@@ -23,6 +23,7 @@ import {DatasourceComponent} from './datasource/datasource.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SearchBoxComponent, SearchTextGetter} from './search-box/search-box';
 import {OcticonDirective} from './oction/OctionDirective';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import {OcticonDirective} from './oction/OctionDirective';
     SearchBoxComponent,
     OcticonDirective,
     SearchTextGetter,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
