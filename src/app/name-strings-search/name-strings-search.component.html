@@ -14,7 +14,8 @@
                       let idx = index">
             <a class="nav-link border-bottom"
                (click)="selectItem(idx)"
-               [ngStyle]="{'text-decoration': idx === this.selectedNameIdx ? 'underline' : 'none'}">
+               [ngStyle]="{'background-color': idx === this.selectedNameIdx ? '#007934' : 'inherit',
+                           'color': idx === this.selectedNameIdx ? '#fdba12' : 'inherit' }">
               {{result.name.value}}
             </a>
           </li>
