@@ -1,4 +1,5 @@
 <div [ngSwitch]="searchState">
   <app-search-help *ngSwitchCase="searchStateEnum.Empty"></app-search-help>
   <app-name-strings-search *ngSwitchCase="searchStateEnum.NameFilter"></app-name-strings-search>
+  <app-names-resolver *ngSwitchCase="searchStateEnum.NameResolver"></app-names-resolver>
 </div>

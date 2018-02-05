@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import {NameResolverQuery, NameResolverQueryVariables} from '../api-client/OperationResultTypes';
 import {Apollo} from 'apollo-angular';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {SearchStatus, SearchStatusService} from '../search-box/search-box.service';
 
 @Component({
   selector: 'app-names-resolver',
@@ -12,7 +13,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
   providers: [ApiClientService]
 })
 export class NamesResolverComponent implements OnInit {
-  searchText = '';
+  searchText: string;
   loading = false;
   resultIsFetched = false;
   responses = [];
@@ -50,18 +51,26 @@ export class NamesResolverComponent implements OnInit {
   constructor(apiClientService: ApiClientService,
               private _apollo: Apollo,
               private _activatedRoute: ActivatedRoute,
-              private _router: Router) {
+              private _router: Router,
+              private _searchStatusService: SearchStatusService) {
     this.apiClientService = apiClientService;
+
+    this._searchStatusService.searchStatus$.subscribe(searchStatus => {
+      this.goSearch(searchStatus);
+    });
   }
 
   ngOnInit() {
     this._activatedRoute.queryParams.subscribe((params: Params) => {
       console.log(params);
-      this.searchText = (params['names'] || '').split('|').filter(x => x.length > 0).join('\n');
+      const searchText = (params['q'] || '').split('|').filter(x => x.length > 0).join('\n');
+      const ss = new SearchStatus(searchText);
+      this.goSearch(ss);
     });
   }
 
-  search() {
+  goSearch(searchStatus: SearchStatus) {
+    this.searchText = searchStatus.searchText;
     if (this.searchText === '') {
       return;
     }
@@ -72,7 +81,7 @@ export class NamesResolverComponent implements OnInit {
     this.searchingNames = [];
 
     const names = this.searchText.split('\n').filter(x => x.length > 0);
-    this._router.navigate(['/resolver'], {queryParams: {names: names.join('|')}});
+    this._router.navigate(['/search'], {queryParams: {q: names.join('|')}});
 
     const namesVar = names.map(n => ({value: n}));
     console.log('resolving names: ');

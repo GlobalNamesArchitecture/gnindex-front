@@ -25,18 +25,6 @@
     </nav>
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-      <div class="border-bottom">
-        <textarea [(ngModel)]="searchText" type="text" class="form-control mb-3"
-                  placeholder="Search..." aria-label="Search..."
-                  rows="3"
-                  (keyup.control.enter)="search()"></textarea>
-      </div>
-
-      <div *ngIf="!resultIsFetched && !loading">
-        Resolve lists of scientific names against known sources. This service parses incoming names, executes exact or
-        fuzzy matching as required, and displays a confidence score for each match along with its identifier.
-      </div>
-
       <div *ngIf="resultIsFetched">
         <h4>
           {{selectedResult().suppliedInput}} <i>[{{selectedResult().results[0].matchType.kind.toLowerCase()}}]</i>
@@ -53,7 +41,7 @@
       <div *ngIf="resultIsFetched && responses.length == 0">
         <hr/>
         <p>
-          Alas, there are no results for "{{searchText}}". Try another one...
+          Alas, there are no results for "{{this.searchText}}". Try another one...
         </p>
       </div>
     </main>
