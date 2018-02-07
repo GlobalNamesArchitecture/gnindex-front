@@ -1,24 +1,16 @@
 <nav class="navbar navbar-light sticky-top flex-md-nowrap p-0 border-bottom">
-  <a class="navbar-brand col-sm-1 col-md-2 mr-0" href="#" style="">
-    <img src="assets/img/gna-logo.svg" width="60em" style="padding-right: 20px; padding-bottom: 30px" />
+  <a class="navbar-brand col-sm-1 col-md-2 mr-0" href="#">
+    <img src="assets/img/gna-logo.svg" width="60em" style="padding-right: 2em"/>
     Global Names Index
   </a>
 
-  <div class="row" style="margin-right: auto">
-    <div class="navbar-nav px-3 nav-item">
-      <a class="text-nowrap nav-link" routerLinkActive="active" [routerLink]="'/search'">Search</a>
-    </div>
-    <div class="navbar-nav px-3 nav-item">
-      <a class="text-nowrap nav-link" routerLinkActive="active" [routerLink]="'/browse'">Browse</a>
-    </div>
-    <div class="navbar-nav px-3 nav-item">
-      <a class="text-nowrap nav-link" routerLinkActive="active" [routerLink]="'/graphiql'">GraphiQL</a>
-    </div>
-    <div class="navbar-nav px-3 nav-item">
-      <a class="text-nowrap nav-link" routerLinkActive="active" [routerLink]="'/help'">Help</a>
-    </div>
-    <app-search-box class="px-3 w-100" style="margin-top: 10px"></app-search-box>
-  </div>
+  <app-search-box class="w-100" style="padding-right: 1em"></app-search-box>
+  <nav class="text-nowrap my-1 my-md-0 mr-md-3">
+    <a class="p-2" routerLinkActive="active" [routerLink]="'/search'">Search</a>
+    <a class="p-2" routerLinkActive="active" [routerLink]="'/browse'">Browes</a>
+    <a class="p-2" routerLinkActive="active" [routerLink]="'/graphiql'">GraphiQL</a>
+    <a class="p-2" routerLinkActive="active" [routerLink]="'/help'">Help</a>
+  </nav>
 </nav>
 
 <router-outlet></router-outlet>

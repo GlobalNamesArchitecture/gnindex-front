@@ -83,27 +83,22 @@ a.navbar-brand img {
   margin-right: auto;
 }
 
-.navbar-light .navbar-nav {
-  a.nav-link {
-    font-size: 14px;
-    color: #007934;
+nav {
+  a {
+    color: rgba(0, 0, 0, 0.9);
     text-decoration-color: #007934;
     padding: 7px 14px;
-    font-weight: 900;
+    font-weight: 100;
   }
 
-  a.nav-link:hover {
-    border-radius: 5px;
-    background-color: #252525;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.1);
-    color: #da9c02;
+  a:hover {
+    background-color: #fdba12;
+    color: white;
   }
 
-  a.nav-link.active {
-    border-radius: 5px;
+  a.active {
     background-color: #007934;
-    color: #fdba12;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 1px 5px rgba(0, 0, 0, 0.5);
+    color: white;
   }
 }
 

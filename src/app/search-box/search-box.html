@@ -14,24 +14,26 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark"
-            (click)="c('Search click'); doSearch();">Search</button>
+            (click)="c('Search click'); doSearch();">Search
+    </button>
   </div>
 </ng-template>
 
-<div class="input-group">
+
+<div class="input-group text-nowrap w-100">
   <input type="text" class="form-control"
          [ngModel]="status.searchText | searchTextGetter"
          (ngModelChange)="status.searchText = $event"
          placeholder="Search..." aria-label="Search..."
          (keyup.control.enter)="multilineSearch(content)"
          (keyup.enter)="doSearch()"
-         (focus)="handleFocus(content)"
-         #searchInput />
+         (focus)="handleFocus(content)"/>
+
   <div class="input-group-append">
     <button class="input-group-text" appOcticon="three-bars"
-          (click)="openModal(content)"
-          [disabled]="status.isNameFilterRequest()"></button>
+            (click)="openModal(content)"
+            [disabled]="status.isNameFilterRequest()"></button>
     <button class="input-group-text" appOcticon="search"
-          (click)="doSearch()"></button>
+            (click)="doSearch()"></button>
   </div>
 </div>
