@@ -7,7 +7,7 @@
     </a>
   </div>
 
-  <hr/>
+  <hr *ngIf="currentTripletsRows.length > 0"/>
 
   <div class="row" *ngFor="let currentTripletRow of currentTripletsRows">
     <div style="font-family: monospace; padding: 0.2em;" *ngFor="let currentTriplet of currentTripletRow">
