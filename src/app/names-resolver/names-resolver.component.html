@@ -28,7 +28,8 @@
     <main role="main" class="col-md-8 ml-sm-auto col-lg-8 pt-3 px-4">
       <div *ngIf="resultIsFetched">
         <h4>
-          {{selectedResult().suppliedInput}} <i>[{{selectedResult().results[0].matchType.kind.toLowerCase()}}]</i>
+          {{selectedResult().suppliedInput}}
+          <i *ngIf="showMatchKind()">[{{selectedResult().results[0].matchType.kind.toLowerCase()}}]</i>
         </h4>
         <div *ngIf="selectedResult().results[0].acceptedName.name.value != selectedResult().results[0].name.value">
           {{selectedResult().results[0].acceptedName.name.value}}

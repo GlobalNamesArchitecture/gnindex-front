@@ -106,6 +106,10 @@ export class NamesResolverComponent implements OnInit {
     return this.responses[this.selectedNameIdx];
   }
 
+  showMatchKind(): boolean {
+    return this.selectedResult().results[0].matchType.kind.toLowerCase() != 'match';
+  }
+
   selectItem(idx) {
     console.log(idx);
     this.selectedNameIdx = idx;
