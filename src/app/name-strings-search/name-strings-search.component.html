@@ -74,7 +74,7 @@
     <footer class="footer" *ngIf="resultIsFetched">
       <div class="col-md-4 d-none d-md-block bg-light sidebar" style="z-index: -1"></div>
       <div class="col-md-8 ml-sm-auto col-lg-8 pt-3 px-4 pb-2">
-        Results {{1 + itemsPerPage * (pageNumber - 1)}} &mdash; {{itemsPerPage * pageNumber}}
+        Results {{1 + itemsPerPage * (pageNumber - 1)}} &mdash; {{closingResultCount()}}
         of total {{total}} for <i>'{{searchText}}'</i>
         <pagination-controls (pageChange)="update($event)" id="server"
                              previousLabel="" nextLabel=""

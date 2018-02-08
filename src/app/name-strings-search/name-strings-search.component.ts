@@ -108,4 +108,8 @@ export class NameStringsSearchComponent implements OnInit {
   selectedResult() {
     return this.response['names'][this.selectedNameIdx];
   }
+
+  closingResultCount() {
+    return Math.min(this.total, this.itemsPerPage * this.pageNumber);
+  }
 }
