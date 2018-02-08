@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="row">
+  <div class="row" style="padding-bottom: 7em">
     <nav class="col-md-4 d-none d-md-block sidebar"
          [ngStyle]="{'visibility': this.resultIsFetched ? 'visible' : 'hidden'}">
       <div class="sidebar-sticky">
@@ -69,9 +69,11 @@
       </div>
     </main>
   </div>
+</div>
 
-  <div class="row">
-    <footer class="footer" *ngIf="resultIsFetched">
+<div class="row">
+  <div class="footer-container" *ngIf="resultIsFetched">
+    <div class="footer">
       <div class="col-md-4 d-none d-md-block bg-light sidebar" style="z-index: -1"></div>
       <div class="col-md-8 ml-sm-auto col-lg-8 pt-3 px-4 pb-2">
         Results {{1 + itemsPerPage * (pageNumber - 1)}} &mdash; {{closingResultCount()}}
@@ -81,7 +83,6 @@
                              *ngIf="resultIsFetched && total > itemsPerPage">
         </pagination-controls>
       </div>
-    </footer>
+    </div>
   </div>
-
 </div>
