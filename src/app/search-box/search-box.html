@@ -31,9 +31,10 @@
 
   <div class="input-group-append">
     <button class="input-group-text" appOcticon="three-bars"
+            [color]="status.isNameFilterRequest() ? '#007934' : 'inherit'"
             (click)="openModal(content)"
             [disabled]="status.isNameFilterRequest()"></button>
-    <button class="input-group-text" appOcticon="search"
+    <button class="input-group-text" appOcticon="search" color="#007934"
             (click)="doSearch()"></button>
   </div>
 </div>
