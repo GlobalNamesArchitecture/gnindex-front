@@ -9,7 +9,7 @@ export class SearchTextGetter implements PipeTransform {
   transform(searchQuery: string): string {
     const searchStatus = new SearchStatus(searchQuery);
     if (searchStatus.isMultiline()) {
-      return `${searchStatus.chunks()[0]}... (multiline)`;
+      return `${searchStatus.chunks().join(' | ')}`;
     } else {
       return searchStatus.searchText;
     }
