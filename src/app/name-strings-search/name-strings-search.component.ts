@@ -7,6 +7,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/delay';
 import {SearchStatus, SearchStatusService} from '../search-box/search-box.service';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-name-strings-search',
@@ -33,10 +34,21 @@ export class NameStringsSearchComponent implements OnInit {
   apiClientService: ApiClientService;
   results: Observable<any[]>;
 
+  private static getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
   constructor(apiClientService: ApiClientService,
               private _activatedRoute: ActivatedRoute,
               private _router: Router,
-              private _searchStatusService: SearchStatusService) {
+              private _searchStatusService: SearchStatusService,
+              private _modalService: NgbModal) {
     this.apiClientService = apiClientService;
     this._searchStatusService.searchStatus$.subscribe(searchStatus => {
       this.goSearch(searchStatus);
@@ -111,5 +123,20 @@ export class NameStringsSearchComponent implements OnInit {
 
   closingResultCount() {
     return Math.min(this.total, this.itemsPerPage * this.pageNumber);
+  }
+
+  resultJsonString() {
+    const jsonStr = JSON.stringify(this.response, undefined, 2);
+    console.log(jsonStr);
+    return jsonStr;
+  }
+
+  openModal(content) {
+    this._modalService.open(content, {size: 'lg', windowClass: 'modal-xxl'})
+      .result.then((result) => {
+      console.log(`Closed with: ${result}`);
+    }, (reason) => {
+      console.log(`Dismissed ${NameStringsSearchComponent.getDismissReason(reason)}`);
+    });
   }
 }
