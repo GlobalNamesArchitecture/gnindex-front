@@ -305,6 +305,10 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+angular-2-dropdown-multiselect@^1.6.3:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/angular-2-dropdown-multiselect/-/angular-2-dropdown-multiselect-1.6.3.tgz#9b4dd795513e6a167c82a95dd659a438b322d37f"
+
 angular2-markdown@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/angular2-markdown/-/angular2-markdown-2.2.2.tgz#868d50be5770c2400d41b4ed4c917ed0fa17524a"

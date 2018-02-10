@@ -3,6 +3,7 @@ import {Component, OnInit, Pipe, PipeTransform, ViewChild} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {SearchStatus, SearchStatusService} from './search-box.service';
 import {ActivatedRoute, Params} from '@angular/router';
+import {IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts} from 'angular-2-dropdown-multiselect';
 
 @Pipe({name: 'searchTextGetter'})
 export class SearchTextGetter implements PipeTransform {
@@ -25,6 +26,18 @@ export class SearchBoxComponent implements OnInit {
   @ViewChild('searchInput') searchInput;
   status = new SearchStatus();
 
+  multiSelectOption: IMultiSelectOption[];
+
+  multiSelectSettings: IMultiSelectSettings = {
+    checkedStyle: 'fontawesome',
+    buttonClasses: 'btn btn-default btn-block',
+    fixedTitle: true,
+  };
+
+  multiSelectTexts: IMultiSelectTexts = {
+    defaultTitle: 'Databases',
+  };
+
   private static getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -44,6 +57,21 @@ export class SearchBoxComponent implements OnInit {
     this._activatedRoute.queryParams.subscribe((params: Params) => {
       this.status.searchText = (params['q'] || '').split('|').filter(x => x.length > 0).join('\n');
     });
+
+    this.multiSelectOption = [
+      {id: 0, name: 'All'},
+      {id: 1, name: 'Catalogue of Life'},
+      {id: 11, name: 'GBIF'},
+      {id: 3, name: 'ITIS'},
+      {id: 5, name: 'Index Fungorum'},
+      {id: 167, name: 'IPNI'},
+      {id: 12, name: 'EOL'},
+      {id: 7, name: 'Union'},
+    ];
+  }
+
+  onChange() {
+    console.log(this.status.databases);
   }
 
   doSearch() {

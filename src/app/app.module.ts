@@ -23,8 +23,9 @@ import {DatasourceComponent} from './datasource/datasource.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SearchBoxComponent, SearchTextGetter} from './search-box/search-box';
 import {OcticonDirective} from './oction/OctionDirective';
-import { SearchComponent } from './search/search.component';
-import { SearchHelpComponent } from './search-help/search-help.component';
+import {SearchComponent} from './search/search.component';
+import {SearchHelpComponent} from './search-help/search-help.component';
+import {MultiselectDropdownModule} from 'angular-2-dropdown-multiselect';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { SearchHelpComponent } from './search-help/search-help.component';
     HttpClientModule,
     MarkdownModule.forRoot(),
     NgxPaginationModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    MultiselectDropdownModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

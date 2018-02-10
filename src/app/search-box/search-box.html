@@ -19,7 +19,6 @@
   </div>
 </ng-template>
 
-
 <div class="input-group text-nowrap w-100">
   <input type="text" class="form-control"
          [ngModel]="status.searchText | searchTextGetter"
@@ -36,5 +35,9 @@
             [disabled]="status.isNameFilterRequest()"></button>
     <button class="input-group-text" appOcticon="search" color="#007934"
             (click)="doSearch()"></button>
+    <ss-multiselect-dropdown [options]="multiSelectOption" [texts]="multiSelectTexts"
+                             [(ngModel)]="status.databases" (ngModelChange)="onChange($event)"
+                             [settings]="multiSelectSettings">
+    </ss-multiselect-dropdown>
   </div>
 </div>
