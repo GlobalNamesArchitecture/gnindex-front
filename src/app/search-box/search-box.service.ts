@@ -4,12 +4,12 @@ import {Subject} from 'rxjs/Subject';
 export class SearchStatus {
   closeResult: string;
   searchText: string;
-  databases: number[];
+  dataSourceIds: number[];
 
-  constructor(searchText: string = '', closeResult: string = '', databases: number[] = []) {
+  constructor(searchText: string = '', closeResult: string = '', dataSourceIds: number[] = []) {
     this.closeResult = closeResult;
     this.searchText = searchText;
-    this.databases = databases;
+    this.dataSourceIds = dataSourceIds;
   }
 
   isMultiline(): boolean {

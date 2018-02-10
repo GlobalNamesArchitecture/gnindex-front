@@ -71,7 +71,7 @@ export class SearchBoxComponent implements OnInit {
   }
 
   onChange() {
-    console.log(this.status.databases);
+    console.log(this.status.dataSourceIds);
   }
 
   doSearch() {

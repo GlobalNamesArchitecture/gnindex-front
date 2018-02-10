@@ -22,8 +22,8 @@ export class NamesResolverComponent implements OnInit {
   selectedNameIdx = 0;
 
   private NAME_RESOLVER_QUERY = gql`
-    query NameResolver($names: [name!]!) {
-      nameResolver(names: $names, bestMatchOnly: true) {
+    query NameResolver($names: [name!]!, $dataSourceIds: [Int!]) {
+      nameResolver(names: $names, bestMatchOnly: true, dataSourceIds: $dataSourceIds) {
         responses {
           suppliedInput
           results {
@@ -41,6 +41,10 @@ export class NamesResolverComponent implements OnInit {
             matchType {
               kind
               score
+            }
+            dataSource {
+              id
+              title
             }
           }
           total
@@ -88,7 +92,10 @@ export class NamesResolverComponent implements OnInit {
     console.log(namesVar);
     this._apollo.query<NameResolverQuery, NameResolverQueryVariables>({
       query: this.NAME_RESOLVER_QUERY,
-      variables: {names: namesVar}
+      variables: {
+        names: namesVar,
+        dataSourceIds: searchStatus.dataSourceIds,
+      }
     }).subscribe(({data}) => {
       console.log(data);
 

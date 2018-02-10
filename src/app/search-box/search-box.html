@@ -36,7 +36,7 @@
     <button class="input-group-text" appOcticon="search" color="#007934"
             (click)="doSearch()"></button>
     <ss-multiselect-dropdown [options]="multiSelectOption" [texts]="multiSelectTexts"
-                             [(ngModel)]="status.databases" (ngModelChange)="onChange($event)"
+                             [(ngModel)]="status.dataSourceIds" (ngModelChange)="onChange($event)"
                              [settings]="multiSelectSettings">
     </ss-multiselect-dropdown>
   </div>

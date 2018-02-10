@@ -70,6 +70,7 @@ export type DataSourceQuery = {
 
 export type NameResolverQueryVariables = {
   names: Array< name >,
+  dataSourceIds?: Array< number > | null,
 };
 
 export type NameResolverQuery = {
@@ -91,6 +92,10 @@ export type NameResolverQuery = {
         matchType:  {
           kind: string,
           score: number,
+        },
+        dataSource:  {
+          id: number,
+          title: string,
         },
       } >,
       total: number,

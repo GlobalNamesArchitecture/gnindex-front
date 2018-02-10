@@ -2,7 +2,7 @@
   <div class="row">
     <nav class="col-md-4 d-none d-md-block sidebar">
       <div class="sidebar-sticky">
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted">
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-1 mb-1 text-muted">
           Scientific names
         </h6>
         <ul class="nav flex-column">
@@ -38,6 +38,13 @@
           {{apiClientService.formatClassificationPath(selectedResult().results[0].classification)}}
         </div>
         <a [href]="selectedResult().results[0].url || ''">record</a>
+
+        <h5>Data Sources</h5>
+        <div *ngIf="true || selectedResult().results.length > 0">
+          <div *ngFor="let result of selectedResult().results">
+            {{result.dataSource.title}}
+          </div>
+        </div>
       </div>
 
       <div *ngIf="resultIsFetched && responses.length == 0">
