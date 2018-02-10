@@ -71,6 +71,7 @@ export type DataSourceQuery = {
 export type NameResolverQueryVariables = {
   names: Array< name >,
   dataSourceIds?: Array< number > | null,
+  bestMatchOnly?: boolean | null,
 };
 
 export type NameResolverQuery = {

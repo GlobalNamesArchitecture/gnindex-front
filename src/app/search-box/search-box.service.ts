@@ -5,11 +5,14 @@ export class SearchStatus {
   closeResult: string;
   searchText: string;
   dataSourceIds: number[];
+  bestOnly: boolean;
 
-  constructor(searchText: string = '', closeResult: string = '', dataSourceIds: number[] = []) {
+  constructor(searchText: string = '', closeResult: string = '',
+              dataSourceIds: number[] = [], bestOnly: boolean = true) {
     this.closeResult = closeResult;
     this.searchText = searchText;
     this.dataSourceIds = dataSourceIds;
+    this.bestOnly = bestOnly;
   }
 
   isMultiline(): boolean {

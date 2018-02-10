@@ -101,4 +101,8 @@ export class SearchBoxComponent implements OnInit {
       this.searchInput.nativeElement.blur();
     }
   }
+
+  bestOnlyClicked() {
+    this.status.bestOnly = !this.status.bestOnly;
+  }
 }

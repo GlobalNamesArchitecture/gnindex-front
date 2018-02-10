@@ -22,8 +22,8 @@ export class NamesResolverComponent implements OnInit {
   selectedNameIdx = 0;
 
   private NAME_RESOLVER_QUERY = gql`
-    query NameResolver($names: [name!]!, $dataSourceIds: [Int!]) {
-      nameResolver(names: $names, bestMatchOnly: true, dataSourceIds: $dataSourceIds) {
+    query NameResolver($names: [name!]!, $dataSourceIds: [Int!], $bestMatchOnly: Boolean) {
+      nameResolver(names: $names, bestMatchOnly: $bestMatchOnly, dataSourceIds: $dataSourceIds) {
         responses {
           suppliedInput
           results {
@@ -95,6 +95,7 @@ export class NamesResolverComponent implements OnInit {
       variables: {
         names: namesVar,
         dataSourceIds: searchStatus.dataSourceIds,
+        bestMatchOnly: searchStatus.bestOnly,
       }
     }).subscribe(({data}) => {
       console.log(data);

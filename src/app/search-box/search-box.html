@@ -35,6 +35,9 @@
             [disabled]="status.isNameFilterRequest()"></button>
     <button class="input-group-text" appOcticon="search" color="#007934"
             (click)="doSearch()"></button>
+    <button class="input-group-text" (click)="bestOnlyClicked()" style="width: 6em;">
+      {{status.bestOnly ? 'Best only' : 'All'}}
+    </button>
     <ss-multiselect-dropdown [options]="multiSelectOption" [texts]="multiSelectTexts"
                              [(ngModel)]="status.dataSourceIds" (ngModelChange)="onChange($event)"
                              [settings]="multiSelectSettings">
