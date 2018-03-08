@@ -1,19 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiClientService} from '../api-client/api-client.service';
 import { NameBrowserTripletsQuery, NameBrowserTripletsQueryVariables } from '../api-client/OperationResultTypes';
 import gql from 'graphql-tag';
+import {Apollo} from 'apollo-angular';
 
 @Component({
   selector: 'app-browse',
   templateUrl: './browse.component.html',
   styleUrls: ['./browse.component.scss'],
-  providers: [ApiClientService]
 })
 export class BrowseComponent implements OnInit {
   letters = [];
   currentTriplets = [];
   currentTripletsRows = [];
-  apiClientService: ApiClientService;
   alphabetSize = 26;
 
   private NAME_BROWSER_QUERY = gql`
@@ -24,9 +22,7 @@ export class BrowseComponent implements OnInit {
       }
     }`;
 
-  constructor(apiClientService: ApiClientService) {
-    this.apiClientService = apiClientService;
-
+  constructor(private _apollo: Apollo) {
     for (let letterIdx = 0; letterIdx < this.alphabetSize; letterIdx++) {
       this.letters.push(String.fromCharCode(97 + letterIdx).toUpperCase());
     }
@@ -38,7 +34,7 @@ export class BrowseComponent implements OnInit {
   selectLetter(letter: string) {
     this.currentTriplets = [];
     console.log(letter);
-    this.apiClientService._apollo.query<NameBrowserTripletsQuery, NameBrowserTripletsQueryVariables>({
+    this._apollo.query<NameBrowserTripletsQuery, NameBrowserTripletsQueryVariables>({
       query: this.NAME_BROWSER_QUERY,
       variables: {
         letter: letter

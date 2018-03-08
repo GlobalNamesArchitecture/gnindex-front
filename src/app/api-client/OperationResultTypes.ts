@@ -6,6 +6,29 @@ export type name = {
   suppliedId?: string | null,
 };
 
+export type NameBrowserTripletsQueryVariables = {
+  letter: string,
+};
+
+export type NameBrowserTripletsQuery = {
+  nameBrowser_triplets:  Array< {
+    value: string,
+    active: boolean,
+  } >,
+};
+
+export type DataSourceQueryVariables = {
+  dataSourceIds?: Array< number > | null,
+};
+
+export type DataSourceQuery = {
+  dataSourceById:  Array< {
+    id: number,
+    title: string,
+    description: string | null,
+  } >,
+};
+
 export type NameStringsQueryVariables = {
   searchTerm: string,
   page?: number | null,
@@ -43,29 +66,6 @@ export type NameStringsQuery = {
       } >,
     } >,
   },
-};
-
-export type NameBrowserTripletsQueryVariables = {
-  letter: string,
-};
-
-export type NameBrowserTripletsQuery = {
-  nameBrowser_triplets:  Array< {
-    value: string,
-    active: boolean,
-  } >,
-};
-
-export type DataSourceQueryVariables = {
-  dataSourceIds?: Array< number > | null,
-};
-
-export type DataSourceQuery = {
-  dataSourceById:  Array< {
-    id: number,
-    title: string,
-    description: string | null,
-  } >,
 };
 
 export type NameResolverQueryVariables = {

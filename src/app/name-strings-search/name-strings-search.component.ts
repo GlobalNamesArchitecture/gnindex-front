@@ -8,6 +8,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/delay';
 import {SearchStatus, SearchStatusService} from '../search-box/search-box.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NameStringsQuery, NameStringsQueryVariables} from '../api-client/OperationResultTypes';
+import gql from 'graphql-tag';
+import {Apollo} from 'apollo-angular';
 
 @Component({
   selector: 'app-name-strings-search',
@@ -34,6 +37,40 @@ export class NameStringsSearchComponent implements OnInit {
   apiClientService: ApiClientService;
   results: Observable<any[]>;
 
+  private NAME_STRINGS_QUERY = gql`
+    query NameStrings($searchTerm: String!, $page: Int, $perPage: Int) {
+      nameStrings(searchTerm: $searchTerm, page: $page, perPage: $perPage) {
+        page
+        perPage
+        resultsCount
+        names {
+          name {
+            value
+          }
+          canonicalName {
+            value
+          }
+          resultsPerDataSource {
+            dataSource {
+              id
+              title
+            }
+            results {
+              acceptedName {
+                name {
+                  value
+                }
+              }
+              classification {
+                path
+                pathRanks
+              }
+            }
+          }
+        }
+      }
+    }`;
+
   private static getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -45,6 +82,7 @@ export class NameStringsSearchComponent implements OnInit {
   }
 
   constructor(apiClientService: ApiClientService,
+              private _apollo: Apollo,
               private _activatedRoute: ActivatedRoute,
               private _router: Router,
               private _searchStatusService: SearchStatusService,
@@ -85,19 +123,19 @@ export class NameStringsSearchComponent implements OnInit {
 
   update(page: number) {
     this.loading = true;
-    this.results = this.apiClientService
-      .searchNameStrings(this.searchText, page, this.itemsPerPage)
-      .map((response) => {
-        this.loading = false;
-        this.pageNumber = page;
-        this.response = response;
-        this.total = this.response['resultsCount'];
-        this.resultIsFetched = true;
-        console.log('name-strings results:');
-        console.log(this.response);
-        console.log(this.results);
-        return this.response['names'];
-      });
+    this.results =
+      this.searchNameStrings(this.searchText, page, this.itemsPerPage)
+          .map((response) => {
+            this.loading = false;
+            this.pageNumber = page;
+            this.response = response;
+            this.total = this.response['resultsCount'];
+            this.resultIsFetched = true;
+            console.log('name-strings results:');
+            console.log(this.response);
+            console.log(this.results);
+            return this.response['names'];
+          });
   }
 
   selectItem(idx) {
@@ -108,12 +146,11 @@ export class NameStringsSearchComponent implements OnInit {
       const result = this.response['names'][this.selectedNameIdx];
       const query = `can:${result.canonicalName.value}`;
       console.log('searching for canonical name: ' + query);
-      this.apiClientService
-        .searchNameStrings(query, 1, this.itemsPerPage)
-        .subscribe((response) => {
-          this.namesWithSameCanonicalName = response['names'].map((r) => r['name'].value);
-          console.log(this.namesWithSameCanonicalName);
-        });
+      this.searchNameStrings(query, 1, this.itemsPerPage)
+          .subscribe((response) => {
+            this.namesWithSameCanonicalName = response['names'].map((r) => r['name'].value);
+            console.log(this.namesWithSameCanonicalName);
+          });
     }
   }
 
@@ -138,5 +175,17 @@ export class NameStringsSearchComponent implements OnInit {
     }, (reason) => {
       console.log(`Dismissed ${NameStringsSearchComponent.getDismissReason(reason)}`);
     });
+  }
+
+  private searchNameStrings(searchText: string, pageNumber: number, itemsPerPage: number) {
+    console.log(`searchText: ${searchText}, pageNumber: ${pageNumber}`);
+    return this._apollo.query<NameStringsQuery, NameStringsQueryVariables>({
+      query: this.NAME_STRINGS_QUERY,
+      variables: {
+        searchTerm: searchText,
+        page: pageNumber - 1,
+        perPage: itemsPerPage
+      }
+    }).map(({data}) => data.nameStrings);
   }
 }
