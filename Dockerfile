@@ -6,5 +6,3 @@ COPY conf/sites-enabled/ /etc/nginx/sites-enabled/
 WORKDIR /opt/app/
 COPY app/dist/ .
 COPY graphiql/build/ ./graphiql
-
-EXPOSE 3000
