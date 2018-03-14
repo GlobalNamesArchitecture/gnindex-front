@@ -78,28 +78,32 @@ export type NameResolverQuery = {
   nameResolver:  {
     responses:  Array< {
       suppliedInput: string | null,
+      total: number,
       results:  Array< {
         name:  {
           value: string,
         },
-        classification:  {
-          path: string | null,
-        },
-        acceptedName:  {
-          name:  {
-            value: string,
+        resultsPerDataSource:  Array< {
+          dataSource:  {
+            id: number,
+            title: string,
           },
-        } | null,
-        matchType:  {
-          kind: string,
-          score: number,
-        },
-        dataSource:  {
-          id: number,
-          title: string,
-        },
+          results:  Array< {
+            classification:  {
+              path: string | null,
+            },
+            acceptedName:  {
+              name:  {
+                value: string,
+              },
+            } | null,
+            matchType:  {
+              kind: string,
+              score: number,
+            },
+          } >,
+        } >,
       } >,
-      total: number,
     } >,
   },
 };

@@ -16,34 +16,29 @@
             </a>
           </li>
         </ul>
-
-        <!--
-        <pagination-controls (pageChange)="update($event)" id="server"
-                             previousLabel="" nextLabel=""
-                             *ngIf="resultIsFetched"></pagination-controls>
-                             -->
       </div>
     </nav>
 
     <main role="main" class="col-md-8 ml-sm-auto col-lg-8 pt-3 px-4">
       <div *ngIf="resultIsFetched">
-        <h4>
-          {{selectedResult().suppliedInput}}
-          <i *ngIf="showMatchKind()">[{{selectedResult().results[0].matchType.kind.toLowerCase()}}]</i>
-        </h4>
-        <div *ngIf="selectedResult().results[0].acceptedName.name.value != selectedResult().results[0].name.value">
-          {{selectedResult().results[0].acceptedName.name.value}}
-        </div>
-        <div *ngIf="apiClientService.formatClassificationPath(selectedResult().results[0].classification)">
-          {{apiClientService.formatClassificationPath(selectedResult().results[0].classification)}}
-        </div>
-        <a [href]="selectedResult().results[0].url || ''">record</a>
-
-        <h5>Data Sources</h5>
-        <div *ngIf="true || selectedResult().results.length > 0">
-          <div *ngFor="let result of selectedResult().results">
-            {{result.dataSource.title}}
+        <div *ngFor="let result of selectedResult().results">
+          <h4>{{result.name.value}}</h4>
+          <div *ngFor="let resultDS of result.resultsPerDataSource">
+            <h5>
+              <a [href]="'datasource/' + resultDS.dataSource.id">
+                  {{resultDS.dataSource.title}}
+              </a>
+            </h5>
+            <div *ngFor="let res of resultDS.results">
+              <div *ngIf="res.acceptedName.name.value != result.name.value">
+                Accepted name: {{res.acceptedName.name.value}}
+              </div>
+              <div *ngIf="apiClientService.formatClassificationPath(res.classification)">
+                Classification path: {{apiClientService.formatClassificationPath(res.classification)}}
+              </div>
+            </div>
           </div>
+          <hr/>
         </div>
       </div>
 
@@ -56,4 +51,3 @@
     </main>
   </div>
 </div>
-

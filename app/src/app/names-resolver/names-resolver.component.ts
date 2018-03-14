@@ -26,28 +26,32 @@ export class NamesResolverComponent implements OnInit {
       nameResolver(names: $names, bestMatchOnly: $bestMatchOnly, dataSourceIds: $dataSourceIds) {
         responses {
           suppliedInput
+          total
           results {
             name {
               value
             }
-            classification {
-              path
-            }
-            acceptedName {
-              name {
-                value
+            resultsPerDataSource {
+              dataSource {
+                id
+                title
+              }
+              results {
+                classification {
+                  path
+                }
+                acceptedName {
+                  name {
+                    value
+                  }
+                }
+                matchType {
+                  kind
+                  score
+                }
               }
             }
-            matchType {
-              kind
-              score
-            }
-            dataSource {
-              id
-              title
-            }
           }
-          total
         }
       }
     }`;
