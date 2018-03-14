@@ -39,8 +39,10 @@
       {{status.bestOnly ? 'Best only' : 'All'}}
     </button>
     <ss-multiselect-dropdown [options]="multiSelectOption" [texts]="multiSelectTexts"
-                             [(ngModel)]="status.dataSourceIds" (ngModelChange)="onChange($event)"
-                             [settings]="multiSelectSettings">
+                             [(ngModel)]="status.dataSourceIds"
+                             [settings]="multiSelectSettings"
+                             (onAdded)="onDatabaseMultiselectAdded($event)"
+                             (onRemoved)="onDatabaseMultiselectRemoved($event)">
     </ss-multiselect-dropdown>
   </div>
 </div>

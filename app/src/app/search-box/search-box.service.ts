@@ -8,7 +8,7 @@ export class SearchStatus {
   bestOnly: boolean;
 
   constructor(searchText: string = '', closeResult: string = '',
-              dataSourceIds: number[] = [], bestOnly: boolean = true) {
+              dataSourceIds: number[] = [0], bestOnly: boolean = true) {
     this.closeResult = closeResult;
     this.searchText = searchText;
     this.dataSourceIds = dataSourceIds;
