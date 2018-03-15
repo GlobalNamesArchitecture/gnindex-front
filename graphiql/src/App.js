@@ -112,34 +112,38 @@ const defaultQuery = `# Welcome to GraphiQL
           value
         }
         canonicalName {
-          id
+          id 
           value
           valueRanked
         }
-        dataSource {
-          id
-          title
-        }
-        acceptedName {
-          name {
-            value
+        resultsPerDataSource {
+          dataSource {
+            id
+            title
           }
-          canonicalName {
-            value
+          results {
+            name {
+              id
+              value
+            }
+            synonym
+            taxonId
+            matchType {
+              kind
+              score
+              editDistance
+            }
+            score {
+              nameType
+              authorScore {
+                authorshipInput
+                authorshipMatch
+                value
+              }
+              parsingQuality
+              value
+            }
           }
-          taxonId
-          dataSourceId
-        }
-        synonym
-        matchType {
-          kind
-          score
-          editDistance
-        }
-        taxonId
-        score {
-          value
-          parsingQuality
         }
       }
       preferredResults {
