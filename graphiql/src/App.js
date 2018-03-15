@@ -163,14 +163,14 @@ const defaultQuery = `# Welcome to GraphiQL
       }
     }
   }
-}
-`;
-
-let graphiql = null;
+}`;
 
 class CustomGraphQL extends Component {
     constructor(props) {
         super(props);
+
+        this.handleClickPrettifyButton = this.handleClickPrettifyButton.bind(this);
+
         this.state = {
             // REQUIRED:
             // `fetcher` must be provided in order for GraphiQL to operate
@@ -208,7 +208,7 @@ class CustomGraphQL extends Component {
 
     // Example of using the GraphiQL Component API via a toolbar button.
     handleClickPrettifyButton() {
-        const editor = graphiql.getQueryEditor();
+        const editor = this.graphiql.getQueryEditor();
         const currentText = editor.getValue();
         const {parse, print} = require('graphql');
         const prettyText = print(parse(currentText));
@@ -222,7 +222,7 @@ class CustomGraphQL extends Component {
 
     render() {
        return (
-           <GraphiQL ref={c => { graphiql = c; console.log(this); console.log(graphiql); }} {...this.state}>
+           <GraphiQL ref={c => { this.graphiql = c; }} {...this.state}>
                 <GraphiQL.Logo>
                     <a href="/"><img src={logo} width="30em" /></a>
                 </GraphiQL.Logo>
