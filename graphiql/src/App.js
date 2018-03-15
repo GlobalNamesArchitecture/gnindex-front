@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
+import logo from './gna-logo.svg';
 import './App.css';
 import GraphiQL from 'graphiql';
 import '../node_modules/graphiql/graphiql.css';
@@ -44,7 +44,7 @@ function onEditOperationName(newOperationName) {
 }
 
 function updateURL() {
-    var newSearch = '?' + Object.keys(parameters).filter(function (key) {
+    const newSearch = '?' + Object.keys(parameters).filter(function (key) {
         return Boolean(parameters[key]);
     }).map(function (key) {
         return encodeURIComponent(key) + '=' +
@@ -162,6 +162,7 @@ const defaultQuery = `# Welcome to GraphiQL
 }
 `;
 
+let graphiql = null;
 
 class CustomGraphQL extends Component {
     constructor(props) {
@@ -169,12 +170,12 @@ class CustomGraphQL extends Component {
         this.state = {
             // REQUIRED:
             // `fetcher` must be provided in order for GraphiQL to operate
-            fetcher: this.props.fetcher,
+            fetcher: graphQLFetcher,
 
             // OPTIONAL PARAMETERS
             // GraphQL artifacts
-            query: '',
-            variables: '',
+            query: parameters.query,
+            variables: parameters.variables,
             response: '',
 
             // GraphQL Schema
@@ -184,14 +185,14 @@ class CustomGraphQL extends Component {
 
             // Useful to determine which operation to run
             // when there are multiple of them.
-            operationName: null,
+            operationName: parameters.operationName,
             storage: null,
-            defaultQuery: null,
+            defaultQuery: defaultQuery,
 
             // Custom Event Handlers
-            onEditQuery: null,
-            onEditVariables: null,
-            onEditOperationName: null,
+            onEditQuery: onEditQuery,
+            onEditVariables: onEditVariables,
+            onEditOperationName: onEditOperationName,
 
             // GraphiQL automatically fills in leaf nodes when the query
             // does not provide them. Change this if your GraphQL Definitions
@@ -202,35 +203,32 @@ class CustomGraphQL extends Component {
     }
 
     // Example of using the GraphiQL Component API via a toolbar button.
-    handleClickPrettifyButton(event) {
-        const editor = this.graphiql.getQueryEditor();
+    handleClickPrettifyButton() {
+        const editor = graphiql.getQueryEditor();
         const currentText = editor.getValue();
         const {parse, print} = require('graphql');
         const prettyText = print(parse(currentText));
+        console.log(prettyText);
         editor.setValue(prettyText);
     }
 
+    handleSave() {
+        console.log('saved');
+    }
+
     render() {
-        return (
-            <GraphiQL ref={c => { this.graphiql = c; }} {...this.state}>
+       return (
+           <GraphiQL ref={c => { graphiql = c; console.log(this); console.log(graphiql); }} {...this.state}>
                 <GraphiQL.Logo>
-                    Global Names Index
+                    <a href="/"><img src={logo} width="30em" /></a>
                 </GraphiQL.Logo>
                 <GraphiQL.Toolbar>
 
-                    {/*GraphiQL.Button usage*/}
                     <GraphiQL.Button
                         onClick={this.handleClickPrettifyButton}
                         label="Prettify"
                         title="Prettify Query (Shift-Ctrl-P)"
                     />
-
-                    {/*Some other possible toolbar items*/}
-                    <GraphiQL.Menu label="File" title="File">
-                        <GraphiQL.MenuItem label="Save" title="Save" onSelect="{}"/>
-                    </GraphiQL.Menu>
-
-                    {/*<OtherReactComponent someProps="true"/>*/}
 
                 </GraphiQL.Toolbar>
                 <GraphiQL.Footer>
@@ -245,15 +243,7 @@ class CustomGraphQL extends Component {
 class App extends Component {
     render() {
         return (
-             <CustomGraphQL id="graphiql"
-                            fetcher={graphQLFetcher}
-                            query={parameters.query}
-                            variables={parameters.variables}
-                            operationName={parameters.operationName}
-                            defaultQuery={defaultQuery}
-                            onEditQuery={onEditQuery}
-                            onEditVariables={onEditVariables}
-                            onEditOperationName={onEditOperationName}/>
+             <CustomGraphQL id="graphiql"/>
         );
     }
 }
