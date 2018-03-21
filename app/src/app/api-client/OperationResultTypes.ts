@@ -33,6 +33,7 @@ export type NameStringsQueryVariables = {
   searchTerm: string,
   page?: number | null,
   perPage?: number | null,
+  dataSourceIds?: Array< number > | null,
 };
 
 export type NameStringsQuery = {

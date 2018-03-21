@@ -26,7 +26,7 @@ export class NameStringsSearchComponent implements OnInit {
   pageNumberParamName = 'pn';
   namesWithSameCanonicalName = [];
 
-  searchText = '';
+  searchStatus: SearchStatus = new SearchStatus();
   response = {};
   resultIsFetched = false;
   pageNumber = 1;
@@ -38,8 +38,8 @@ export class NameStringsSearchComponent implements OnInit {
   results: Observable<any[]>;
 
   private NAME_STRINGS_QUERY = gql`
-    query NameStrings($searchTerm: String!, $page: Int, $perPage: Int) {
-      nameStrings(searchTerm: $searchTerm, page: $page, perPage: $perPage) {
+    query NameStrings($searchTerm: String!, $page: Int, $perPage: Int, $dataSourceIds: [Int!]) {
+      nameStrings(searchTerm: $searchTerm, page: $page, perPage: $perPage, dataSourceIds: $dataSourceIds) {
         page
         perPage
         resultsCount
@@ -95,9 +95,9 @@ export class NameStringsSearchComponent implements OnInit {
 
   ngOnInit() {
     this._activatedRoute.queryParams.subscribe((params: Params) => {
-      this.searchText = params[this.searchParamName];
+      this.searchStatus.searchText = params[this.searchParamName];
       this.pageNumber = +(params[this.pageNumberParamName] || 1);
-      if (this.searchText && this.searchText.length > 0) {
+      if (this.searchStatus.searchText && this.searchStatus.searchText.length > 0) {
         this.update(this.pageNumber);
       }
     });
@@ -108,13 +108,14 @@ export class NameStringsSearchComponent implements OnInit {
     console.log('handling search:');
     console.log(searchStatus);
 
-    this.searchText = searchStatus.searchText;
-    if (this.searchText === '') {
+    this.searchStatus = searchStatus;
+    if (searchStatus.searchText === '') {
       return;
     }
     const queryParams: Params = Object.assign({}, this._activatedRoute.snapshot.queryParams);
     this.selectItem(0);
-    queryParams[this.searchParamName] = this.searchText;
+    queryParams[this.searchParamName] = searchStatus.searchText;
+    queryParams['db'] = searchStatus.dataSourceIds.filter(x => x !== 0).join(',');
     this._router.navigate(
       [this._activatedRoute.snapshot.url.join('/')],
       {queryParams: queryParams}
@@ -124,7 +125,7 @@ export class NameStringsSearchComponent implements OnInit {
   update(page: number) {
     this.loading = true;
     this.results =
-      this.searchNameStrings(this.searchText, page, this.itemsPerPage)
+      this.searchNameStrings(this.searchStatus.searchText, page, this.itemsPerPage)
           .map((response) => {
             this.loading = false;
             this.pageNumber = page;
@@ -138,7 +139,7 @@ export class NameStringsSearchComponent implements OnInit {
           });
   }
 
-  selectItem(idx) {
+  selectItem(idx: number) {
     this.selectedNameIdx = idx;
     this.namesWithSameCanonicalName = [];
 
@@ -178,13 +179,16 @@ export class NameStringsSearchComponent implements OnInit {
   }
 
   private searchNameStrings(searchText: string, pageNumber: number, itemsPerPage: number) {
-    console.log(`searchText: ${searchText}, pageNumber: ${pageNumber}`);
+    console.log(`searchText: ${searchText},
+                 pageNumber: ${pageNumber},
+                 dataSourceIds: ${this.searchStatus.dataSourceIds.filter(x => x !== 0)}`);
     return this._apollo.query<NameStringsQuery, NameStringsQueryVariables>({
       query: this.NAME_STRINGS_QUERY,
       variables: {
         searchTerm: searchText,
         page: pageNumber - 1,
-        perPage: itemsPerPage
+        perPage: itemsPerPage,
+        dataSourceIds: this.searchStatus.dataSourceIds.filter(x => x !== 0),
       }
     }).map(({data}) => data.nameStrings);
   }
