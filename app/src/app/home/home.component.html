@@ -1,4 +1,16 @@
-<main role="main" class="container">
-  <p>Home page</p>
-  <a href="./search?q=can:Homo">Search "can:Homo"</a>
-</main>
+<div class="container pt-1">
+  <div class="row">
+    <ngb-tabset>
+      <ngb-tab title="Search Options">
+        <ng-template ngbTabContent>
+          <app-search-help></app-search-help>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Browse">
+        <ng-template ngbTabContent>
+          <app-browse></app-browse>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>
