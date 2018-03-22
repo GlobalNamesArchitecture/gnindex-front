@@ -71,7 +71,10 @@ export class NamesResolverComponent implements OnInit {
   ngOnInit() {
     this._activatedRoute.queryParams.subscribe((params: Params) => {
       console.log(params);
-      const searchText = (params['q'] || '').split('|').filter(x => x.length > 0).join('\n');
+      const searchText = (params['q'] || '')
+        .split('|')
+        .filter(x => x.length > 0)
+        .join('\n');
       const ss = new SearchStatus(searchText);
       this.goSearch(ss);
     });
@@ -98,8 +101,8 @@ export class NamesResolverComponent implements OnInit {
       query: this.NAME_RESOLVER_QUERY,
       variables: {
         names: namesVar,
-        dataSourceIds: searchStatus.dataSourceIds,
         bestMatchOnly: searchStatus.bestOnly,
+        dataSourceIds: searchStatus.dataSourceIds.filter(x => x !== 0),
       }
     }).subscribe(({data}) => {
       console.log(data);
@@ -116,10 +119,6 @@ export class NamesResolverComponent implements OnInit {
   selectedResult() {
     console.log(this.responses[this.selectedNameIdx]);
     return this.responses[this.selectedNameIdx];
-  }
-
-  showMatchKind(): boolean {
-    return this.selectedResult().results[0].matchType.kind.toLowerCase() != 'match';
   }
 
   selectItem(idx) {

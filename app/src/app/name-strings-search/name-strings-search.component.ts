@@ -134,7 +134,6 @@ export class NameStringsSearchComponent implements OnInit {
             this.resultIsFetched = true;
             console.log('name-strings results:');
             console.log(this.response);
-            console.log(this.results);
             return this.response['names'];
           });
   }
