@@ -121,10 +121,6 @@ export class SearchBoxComponent implements OnInit {
     this._searchStatusService.search(this.status);
   }
 
-  multilineSearch(content) {
-    this.openModal(content);
-  }
-
   openModal(content) {
     this._modalService.open(content, {size: 'lg', windowClass: 'modal-xxl'})
       .result.then((result) => {
@@ -134,13 +130,6 @@ export class SearchBoxComponent implements OnInit {
       this.status.closeResult = `Dismissed ${SearchBoxComponent.getDismissReason(reason)}`;
       console.log(this.status.closeResult);
     });
-  }
-
-  handleFocus(content) {
-    if (this.status.isMultiline()) {
-      this.openModal(content);
-      this.searchInput.nativeElement.blur();
-    }
   }
 
   bestOnlyClicked() {

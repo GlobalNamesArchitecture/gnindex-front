@@ -24,9 +24,9 @@
          [ngModel]="status.searchText | searchTextGetter"
          (ngModelChange)="status.searchText = $event"
          placeholder="Search..." aria-label="Search..."
-         (keyup.control.enter)="multilineSearch(content)"
-         (keyup.enter)="doSearch()"
-         (focus)="handleFocus(content)"/>
+         [readonly]="status.searchText !== undefined && status.searchText.indexOf('\n') > 0"
+         (keyup.control.enter)="openModal(content)"
+         (keyup.enter)="doSearch()" />
 
   <div class="input-group-append">
     <button class="input-group-text" appOcticon="three-bars"
