@@ -66,7 +66,9 @@ export class AppModule {
       link: httpLink.create({
         uri: '/api/graphql'
       }),
-      cache: new InMemoryCache()
+      cache: new InMemoryCache({
+        addTypename: false
+      })
     });
   }
 }
