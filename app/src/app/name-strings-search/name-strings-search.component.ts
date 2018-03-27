@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ApiClientService} from '../api-client/api-client.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
@@ -6,6 +6,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/delay';
+import 'rxjs/add/observable/empty';
 import {SearchStatus, SearchStatusService} from '../search-box/search-box.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NameStringsQuery, NameStringsQueryVariables} from '../api-client/OperationResultTypes';
@@ -26,9 +27,8 @@ export class NameStringsSearchComponent implements OnInit {
   pageNumberParamName = 'pn';
   namesWithSameCanonicalName = [];
 
-  searchStatus: SearchStatus = new SearchStatus();
+  searchStatus: SearchStatus;
   response = {};
-  resultIsFetched = false;
   pageNumber = 1;
   total: number;
   loading: boolean;
@@ -86,29 +86,33 @@ export class NameStringsSearchComponent implements OnInit {
               private _activatedRoute: ActivatedRoute,
               private _router: Router,
               private _searchStatusService: SearchStatusService,
-              private _modalService: NgbModal) {
+              private _modalService: NgbModal,
+              private _changeDetectorRef: ChangeDetectorRef) {
     this.apiClientService = apiClientService;
-    this._searchStatusService.searchStatus$.subscribe(searchStatus => {
-      this.goSearch(searchStatus);
-    });
+    this.searchStatus = _searchStatusService.searchStatusLatest();
   }
 
   ngOnInit() {
     this._activatedRoute.queryParams.subscribe((params: Params) => {
-      this.searchStatus.searchText = params[this.searchParamName];
       this.pageNumber = +(params[this.pageNumberParamName] || 1);
+    });
+    this._searchStatusService.searchStatus$.subscribe(searchStatus => {
+      this.searchStatus = searchStatus;
+      this.goSearch(searchStatus);
       if (this.searchStatus.searchText && this.searchStatus.searchText.length > 0) {
         this.update(this.pageNumber);
       }
     });
     this.selectItem(0);
+    if (this.searchStatus.searchText && this.searchStatus.searchText.length > 0) {
+      this.update(this.pageNumber);
+    }
   }
 
   goSearch(searchStatus: SearchStatus) {
     console.log('handling search:');
     console.log(searchStatus);
 
-    this.searchStatus = searchStatus;
     if (searchStatus.searchText === '') {
       return;
     }
@@ -116,6 +120,7 @@ export class NameStringsSearchComponent implements OnInit {
     this.selectItem(0);
     queryParams[this.searchParamName] = searchStatus.searchText;
     queryParams['db'] = searchStatus.dataSourceIds.filter(x => x !== 0).join(',');
+    queryParams['bo'] = searchStatus.bestOnly;
     this._router.navigate(
       [this._activatedRoute.snapshot.url.join('/')],
       {queryParams: queryParams}
@@ -124,25 +129,28 @@ export class NameStringsSearchComponent implements OnInit {
 
   update(page: number) {
     this.loading = true;
+    this.response = {};
+
     this.results =
       this.searchNameStrings(this.searchStatus.searchText, page, this.itemsPerPage)
-          .map((response) => {
-            this.loading = false;
-            this.pageNumber = page;
-            this.response = response;
-            this.total = this.response['resultsCount'];
-            this.resultIsFetched = true;
-            console.log('name-strings results:');
-            console.log(this.response);
-            return this.response['names'];
-          });
+      .map((response) => {
+        this.loading = false;
+        this.pageNumber = page;
+        this.response = response;
+        this.total = this.response['resultsCount'];
+        console.log('name-strings results:');
+        console.log(this.response);
+        return this.response['names'];
+      });
+
+    this._changeDetectorRef.markForCheck();
   }
 
   selectItem(idx: number) {
     this.selectedNameIdx = idx;
     this.namesWithSameCanonicalName = [];
 
-    if (this.resultIsFetched) {
+    if (this.resultIsNotEmpty()) {
       const result = this.response['names'][this.selectedNameIdx];
       const query = `can:${result.canonicalName.value}`;
       console.log('searching for canonical name: ' + query);
@@ -159,7 +167,7 @@ export class NameStringsSearchComponent implements OnInit {
   }
 
   closingResultCount() {
-    return Math.min(this.total, this.itemsPerPage * this.pageNumber);
+    return Math.min(this.response['resultsCount'], this.itemsPerPage * this.pageNumber);
   }
 
   resultJsonString() {
@@ -177,10 +185,13 @@ export class NameStringsSearchComponent implements OnInit {
     });
   }
 
+  resultIsNotEmpty() {
+    return this.response && this.response['resultsCount'] > 0;
+  }
+
   private searchNameStrings(searchText: string, pageNumber: number, itemsPerPage: number) {
-    console.log(`searchText: ${searchText},
-                 pageNumber: ${pageNumber},
-                 dataSourceIds: ${this.searchStatus.dataSourceIds.filter(x => x !== 0)}`);
+    console.log(`searchText: ${searchText}, pageNumber: ${pageNumber},
+                 dataSourceIds: ${this.searchStatus.dataSourceIds}`);
     return this._apollo.query<NameStringsQuery, NameStringsQueryVariables>({
       query: this.NAME_STRINGS_QUERY,
       variables: {

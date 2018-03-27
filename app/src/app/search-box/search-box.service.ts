@@ -7,8 +7,10 @@ export class SearchStatus {
   dataSourceIds: number[];
   bestOnly: boolean;
 
-  constructor(searchText: string = '', closeResult: string = '',
-              dataSourceIds: number[] = [0], bestOnly: boolean = true) {
+  constructor(searchText: string = '',
+              dataSourceIds: number[] = [0],
+              bestOnly: boolean = true,
+              closeResult: string = '') {
     this.closeResult = closeResult;
     this.searchText = searchText;
     this.dataSourceIds = dataSourceIds;
@@ -39,11 +41,17 @@ export class SearchStatus {
 
 @Injectable()
 export class SearchStatusService {
-  private searchStatusSource = new Subject<SearchStatus>();
+  private _searchStatusSource = new Subject<SearchStatus>();
+  private _searchStatusLatest: SearchStatus = new SearchStatus();
 
-  searchStatus$ = this.searchStatusSource.asObservable();
+  searchStatus$ = this._searchStatusSource.asObservable();
 
   search(searchStatus: SearchStatus) {
-    this.searchStatusSource.next(searchStatus);
+    this._searchStatusLatest = searchStatus;
+    this._searchStatusSource.next(searchStatus);
+  }
+
+  searchStatusLatest() {
+    return this._searchStatusLatest;
   }
 }

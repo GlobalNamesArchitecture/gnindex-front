@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SearchStatus, SearchStatusService} from '../search-box/search-box.service';
-import {ActivatedRoute, Params} from '@angular/router';
 
 export enum SearchState {
   Empty = 1,
@@ -11,24 +10,18 @@ export enum SearchState {
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
   searchStateEnum = SearchState;
 
   searchState: SearchState = SearchState.Empty;
 
-  constructor(private _searchStatusService: SearchStatusService,
-              private _activatedRoute: ActivatedRoute) {
+  constructor(private _searchStatusService: SearchStatusService) {
     this._searchStatusService.searchStatus$.subscribe(searchStatus => {
       this.updateSearchState(searchStatus);
     });
-
-    this._activatedRoute.queryParams.subscribe((params: Params) => {
-      const searchText = params['q'];
-      const ss = new SearchStatus(searchText);
-      this.updateSearchState(ss);
-    });
+    this.updateSearchState(this._searchStatusService.searchStatusLatest());
   }
 
   updateSearchState(searchStatus: SearchStatus) {

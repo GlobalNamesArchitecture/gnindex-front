@@ -71,12 +71,7 @@ export class NamesResolverComponent implements OnInit {
   ngOnInit() {
     this._activatedRoute.queryParams.subscribe((params: Params) => {
       console.log(params);
-      const searchText = (params['q'] || '')
-        .split('|')
-        .filter(x => x.length > 0)
-        .join('\n');
-      const ss = new SearchStatus(searchText);
-      this.goSearch(ss);
+      this.goSearch(this._searchStatusService.searchStatusLatest());
     });
   }
 
