@@ -87,7 +87,15 @@ export class NamesResolverComponent implements OnInit {
     this.searchingNames = [];
 
     const names = this.searchText.split('\n').filter(x => x.length > 0);
-    this._router.navigate(['/search'], {queryParams: {q: names.join('|')}});
+    const queryParams: Params = Object.assign({}, this._activatedRoute.snapshot.queryParams);
+    this.selectItem(0);
+    queryParams['q'] = names.join('|');
+    queryParams['db'] = searchStatus.dataSourceIds.filter(x => x !== 0).join(',');
+    queryParams['bo'] = searchStatus.bestOnly;
+    this._router.navigate(
+      [this._activatedRoute.snapshot.url.join('/')],
+      {queryParams: queryParams}
+    );
 
     const namesVar = names.map(n => ({value: n}));
     console.log('resolving names: ');

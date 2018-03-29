@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
       const queryParams: Params = Object.assign({}, this._activatedRoute.snapshot.queryParams);
       queryParams['q'] = searchStatus.searchText;
       queryParams['db'] = searchStatus.dataSourceIds.filter(x => x !== 0).join(',');
+      queryParams['bo'] = searchStatus.bestOnly;
       this._router.navigate(
         ['search/' + this._activatedRoute.snapshot.url.join('/')],
         {queryParams: queryParams}

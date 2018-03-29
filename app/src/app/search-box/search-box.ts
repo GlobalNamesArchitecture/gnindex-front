@@ -67,6 +67,7 @@ export class SearchBoxComponent implements OnInit {
   ngOnInit(): void {
     this._activatedRoute.queryParams.subscribe((params: Params) => {
       this.status.searchText = (params['q'] || '').split('|').filter(x => x.length > 0).join('\n');
+      this.status.bestOnly = params['bo'] === 'true';
       this.status.dataSourceIds = (params['db'] || '')
         .split(',')
         .map(x => Number(x))
