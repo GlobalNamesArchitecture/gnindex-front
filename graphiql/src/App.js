@@ -131,7 +131,8 @@ const defaultQuery = `# Welcome to GraphiQL
             matchType {
               kind
               score
-              editDistance
+              verbatimEditDistance
+              stemEditDistance
             }
             score {
               nameType
