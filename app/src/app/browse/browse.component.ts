@@ -9,7 +9,8 @@ import {Apollo} from 'apollo-angular';
   styleUrls: ['./browse.component.scss'],
 })
 export class BrowseComponent implements OnInit {
-  letters = [];
+  selectedLetter: string = null;
+  letters: string[] = [];
   currentTriplets = [];
   currentTripletsRows = [];
   alphabetSize = 26;
@@ -32,6 +33,7 @@ export class BrowseComponent implements OnInit {
   }
 
   selectLetter(letter: string) {
+    this.selectedLetter = letter;
     this.currentTriplets = [];
     console.log(letter);
     this._apollo.query<NameBrowserTripletsQuery, NameBrowserTripletsQueryVariables>({
