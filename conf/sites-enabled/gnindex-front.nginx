@@ -1,9 +1,9 @@
-upstream gnindex-api {
-    server index-api.globalnames.org;
+upstream gnindex-api-upstream {
+  server gnindex-api;
 }
 
 server {
-  listen 3000;
+  listen 80;
 
   root /opt/app/;
 
@@ -11,7 +11,7 @@ server {
     expires off;
     add_header Cache-Control private;
     keepalive_timeout 0;
-    proxy_pass http://gnindex-api/api/;
+    proxy_pass http://gnindex-api-upstream/api/;
   }
 
   location / {
