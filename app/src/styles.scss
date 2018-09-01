@@ -33,9 +33,8 @@ body {
   background-color: white;
   position: -webkit-sticky;
   position: sticky;
-  top: 80px; /* Height of navbar */
+  top: 50px; /* Height of navbar */
   height: calc(100vh - 80px);
-  padding-top: .5rem;
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
@@ -43,6 +42,7 @@ body {
 .sidebar .nav-link {
   font-weight: 500;
   color: #333;
+  cursor: pointer;
 }
 
 .sidebar .nav-link .feather {
