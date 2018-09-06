@@ -129,4 +129,13 @@ export class NamesResolverComponent implements OnInit {
     this.selectedNameIdx = idx;
   }
 
+  matchKindColor(matchKind: String) {
+    switch (matchKind) {
+      case 'Match':
+        return 'green';
+      case 'Fuzzy':
+        return 'yellow';
+    }
+  }
+
 }
