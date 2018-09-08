@@ -26,7 +26,7 @@
           <div *ngFor="let resultDS of result.resultsPerDataSource">
             <h5>
               <a [href]="'datasource/' + resultDS.dataSource.id">
-                  {{resultDS.dataSource.title}}
+                {{resultDS.dataSource.title}}
               </a>
             </h5>
             <div *ngFor="let res of resultDS.results">
