@@ -132,9 +132,9 @@ export class NamesResolverComponent implements OnInit {
   matchKindColor(matchKind: String) {
     switch (matchKind) {
       case 'Match':
-        return 'green';
+        return 'Green';
       case 'Fuzzy':
-        return 'yellow';
+        return 'GoldenRod ';
     }
   }
 
