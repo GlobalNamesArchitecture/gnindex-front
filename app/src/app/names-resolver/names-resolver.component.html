@@ -21,6 +21,10 @@
 
     <main role="main" class="col-md-8 ml-sm-auto col-lg-8 pt-3 px-4">
       <div *ngIf="resultIsFetched">
+        <h4 *ngIf="selectedResult().results.length == 0">
+          Alas, there are no results for the name input
+        </h4>
+
         <div *ngFor="let result of selectedResult().results">
           <h4>{{result.name.value}}</h4>
           <div *ngFor="let resultDS of result.resultsPerDataSource">
