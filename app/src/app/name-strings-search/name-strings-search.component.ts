@@ -103,7 +103,6 @@ export class NameStringsSearchComponent implements OnInit {
         this.update(this.pageNumber);
       }
     });
-    this.selectItem(0);
     if (this.searchStatus.searchText && this.searchStatus.searchText.length > 0) {
       this.update(this.pageNumber);
     }
@@ -140,6 +139,8 @@ export class NameStringsSearchComponent implements OnInit {
         this.total = this.response['resultsCount'];
         console.log('name-strings results:');
         console.log(this.response);
+        this.selectItem(0);
+        this._changeDetectorRef.markForCheck();
         return this.response['names'];
       });
 
@@ -158,6 +159,7 @@ export class NameStringsSearchComponent implements OnInit {
           .subscribe((response) => {
             this.namesWithSameCanonicalName = response['names'].map((r) => r['name'].value);
             console.log(this.namesWithSameCanonicalName);
+            this._changeDetectorRef.markForCheck();
           });
     }
   }
