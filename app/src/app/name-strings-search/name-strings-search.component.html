@@ -50,32 +50,35 @@
         <h4>{{selectedResult().name.value}}</h4>
 
         <h5>Similar Names</h5>
-        <ul>
-          <li *ngFor="let similarName of namesWithSameCanonicalName">
+        <ul class="list-group list-group-flush pb-4">
+          <li class="list-group-item"
+              *ngFor="let similarName of namesWithSameCanonicalName">
             {{similarName}}
           </li>
         </ul>
 
         <h5>Data Sources</h5>
         <div *ngIf="selectedResult().resultsPerDataSource.length > 0">
-          <div *ngFor="let resultPerDataSource of selectedResult().resultsPerDataSource">
-            <h6>
+          <div class="card mb-2"
+               *ngFor="let resultPerDataSource of selectedResult().resultsPerDataSource">
+            <h6 class="card-header">
               <a [href]="'datasource/' + resultPerDataSource.dataSource.id">
                 {{resultPerDataSource.dataSource.title}}
               </a>
             </h6>
 
-            <div *ngFor="let result of resultPerDataSource.results"
-                 style="margin-left: .5em; margin-bottom: 1em;">
-              <ul>
-                <li>
-                  <div *ngIf="apiClientService.formatClassificationPath(result.classification)">
+            <div *ngFor="let result of resultPerDataSource.results">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <div class="card-subtitle text-muted"
+                       *ngIf="apiClientService.formatClassificationPath(result.classification)">
                     {{apiClientService.formatClassificationPath(result.classification)}}
                   </div>
                   <div *ngIf="result.acceptedName.name.value != selectedResult().name.value">
                     {{result.acceptedName.name.value}}
                   </div>
-                  <a [href]="result.url || ''">record</a>
+                  <a [href]="result.url || ''" appOcticon="file" width="1em">
+                  </a>
                 </li>
               </ul>
             </div>
