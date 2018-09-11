@@ -38,7 +38,7 @@
                 Accepted name: {{res.acceptedName.name.value}}
               </div>
               <div [ngStyle]="{ 'color': 'white', 'backgroundColor': this.matchKindColor(res.matchType.kind) }"
-                   style="width: 133px">
+                   class="d-inline-flex pl-1 pr-1">
                 Match type: {{res.matchType.kind}}
               </div>
               <div *ngIf="apiClientService.formatClassificationPath(res.classification)">
