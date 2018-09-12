@@ -25,29 +25,37 @@
           Alas, there are no results for the name input
         </h4>
 
-        <div *ngFor="let result of selectedResult().results">
-          <h4>{{result.name.value}}</h4>
-          <div *ngFor="let resultDS of result.resultsPerDataSource">
-            <h5>
-              <a [href]="'datasource/' + resultDS.dataSource.id">
-                {{resultDS.dataSource.title}}
-              </a>
-            </h5>
-            <div *ngFor="let res of resultDS.results">
-              <div *ngIf="res.acceptedName.name.value != result.name.value">
-                Accepted name: {{res.acceptedName.name.value}}
-              </div>
-              <div [ngStyle]="{ 'color': 'white', 'backgroundColor': this.matchKindColor(res.matchType.kind) }"
-                   class="d-inline-flex pl-1 pr-1">
-                Match type: {{res.matchType.kind}}
-              </div>
-              <div *ngIf="apiClientService.formatClassificationPath(res.classification)">
-                Classification path: {{apiClientService.formatClassificationPath(res.classification)}}
-              </div>
-              <br/>
+        <div *ngFor="let result of selectedResult().results" class="card mb-2">
+          <div class="card-header">
+            <h5>{{result.name.value}}</h5>
+          </div>
+          <div class="card-body">
+            <div *ngFor="let resultDS of result.resultsPerDataSource">
+              <h5>
+                <a [href]="'datasource/' + resultDS.dataSource.id">
+                  {{resultDS.dataSource.title}}
+                </a>
+              </h5>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"
+                    *ngFor="let res of resultDS.results">
+                  <div *ngIf="res.acceptedName.name.value != result.name.value">
+                    Accepted name: {{res.acceptedName.name.value}}
+                  </div>
+                  <div [ngStyle]="{ 'color': 'white', 'backgroundColor': this.matchKindColor(res.matchType.kind) }"
+                       class="d-inline-flex pl-1 pr-1">
+                    Match type: {{res.matchType.kind}}
+                  </div>
+                  <div *ngIf="apiClientService.formatClassificationPath(res.classification)">
+                    Classification path: {{apiClientService.formatClassificationPath(res.classification)}}
+                  </div>
+                  <div>
+                    <a [href]="result.url || ''" appOcticon="file" width="1em"></a>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
-          <hr/>
         </div>
       </div>
 
