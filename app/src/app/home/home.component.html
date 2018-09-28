@@ -1,16 +1,10 @@
-<div class="container pt-1">
-  <div class="row">
-    <ngb-tabset>
-      <ngb-tab title="Search Options">
-        <ng-template ngbTabContent>
-          <app-search-help></app-search-help>
-        </ng-template>
-      </ngb-tab>
-      <ngb-tab title="Browse">
-        <ng-template ngbTabContent>
-          <app-browse></app-browse>
-        </ng-template>
-      </ngb-tab>
-    </ngb-tabset>
+<div class="container-fluid pt-1">
+  <div class="row d-flex justify-content-center">
+    <main role="main">
+      <h4>Choose Search Option or <a [routerLink]="'/browse'">Browse the Index</a></h4>
+      <div>
+        <app-search-help></app-search-help>
+      </div>
+    </main>
   </div>
 </div>

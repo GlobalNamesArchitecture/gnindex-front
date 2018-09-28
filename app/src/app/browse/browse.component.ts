@@ -30,12 +30,12 @@ export class BrowseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.selectLetter('A');
   }
 
   selectLetter(letter: string) {
     this.selectedLetter = letter;
     this.currentTriplets = [];
-    console.log(letter);
     this._apollo.query<NameBrowserTripletsQuery, NameBrowserTripletsQueryVariables>({
       query: this.NAME_BROWSER_QUERY,
       variables: {
