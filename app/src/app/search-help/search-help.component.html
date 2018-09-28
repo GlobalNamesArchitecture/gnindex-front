@@ -3,12 +3,14 @@
     <main class="col-md-12 ml-sm-auto col-lg-12 pt-3 px-2" role="main">
       <div *ngIf="!resultIsFetched && !loading">
 
-        Examples:
-        <a href="/search?q=Parus major">“Parus major”</a>
-        <a href="/search?q=gen:Parus sp:major">“gen:Parus sp:major”</a>
-        <a href="/search?q=can:Parus maj*">“can:Parus maj*”</a>
-        <a href="/search?q=gen:Parus yr:1822">“gen:Parus yr:1822”</a>
-        <a href="/search?q=au:Lang* yr:1888">“au:Lang* yr:1888”</a>
+        <div class="mb-3">
+          Examples:
+          <a href="/search?q=Parus major">“Parus major”</a>
+          <a href="/search?q=gen:Parus sp:major">“gen:Parus sp:major”</a>
+          <a href="/search?q=can:Parus maj*">“can:Parus maj*”</a>
+          <a href="/search?q=gen:Parus yr:1822">“gen:Parus yr:1822”</a>
+          <a href="/search?q=au:Lang* yr:1888">“au:Lang* yr:1888”</a>
+        </div>
 
         <div class="table-responsive">
           <table class="table table-striped table-sm">
@@ -17,7 +19,7 @@
               <th>Modifier</th>
               <th>Meaning</th>
               <th>Explanation</th>
-              <th>Examples</th>
+              <th>Example</th>
             </tr>
             </thead>
             <tbody>
