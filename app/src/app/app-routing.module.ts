@@ -11,6 +11,7 @@ import {SearchComponent} from './search/search.component';
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'search', component: SearchComponent},
+  {path: 'datasource', component: DatasourceComponent},
   {path: 'datasource/:id', component: DatasourceComponent},
   {path: 'browse', component: BrowseComponent},
   {path: 'graphiql', component: GraphiqlComponent},

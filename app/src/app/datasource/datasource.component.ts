@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Apollo} from 'apollo-angular';
-import gql from "graphql-tag";
-import {
-  DataSourceQuery, DataSourceQueryVariables, NameResolverQuery,
-  NameResolverQueryVariables
-} from "../api-client/OperationResultTypes";
+import gql from 'graphql-tag';
+import {DataSourceQuery, DataSourceQueryVariables} from '../api-client/OperationResultTypes';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-datasource',
@@ -14,8 +12,9 @@ import {
 })
 export class DatasourceComponent implements OnInit {
 
-  dataSourceId: number;
-  dataSourceInfo = {};
+  protected Lo = _;
+  protected dataSourceId: number[];
+  protected dataSourceQry: DataSourceQuery = undefined;
 
   private DATASOURCE_QUERY = gql`
     query DataSource($dataSourceIds: [Int!]) {
@@ -33,16 +32,25 @@ export class DatasourceComponent implements OnInit {
 
   ngOnInit() {
     this._route.params.subscribe(params => {
-      this.dataSourceId = +params['id'];
+      this.dataSourceId = _.isUndefined(params['id']) ? Array<number>() : [+params['id']];
+      console.log(params['id']);
 
       this._apollo.query<DataSourceQuery, DataSourceQueryVariables>({
         query: this.DATASOURCE_QUERY,
-        variables: {dataSourceIds: [this.dataSourceId]}
+        variables: {dataSourceIds: this.dataSourceId}
       }).subscribe(({data}) => {
         console.log(data);
-        this.dataSourceInfo = data['dataSourceById'][0];
+        this.dataSourceQry = data;
       });
     });
   }
 
+  descriptionPretty(description: string) {
+    const maxLength = 150;
+    if (!_.isNull(description) && description.length > maxLength) {
+      return `${description.substring(0, maxLength)}...`;
+    } else {
+      return description;
+    }
+  }
 }
