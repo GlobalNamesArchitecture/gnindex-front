@@ -134,6 +134,10 @@ const defaultQuery = `# Welcome to GraphiQL
               verbatimEditDistance
               stemEditDistance
             }
+            vernaculars {
+              name
+              language
+            }
             score {
               nameType
               authorScore {
