@@ -84,25 +84,23 @@ export type NameResolverQuery = {
         name:  {
           value: string,
         },
-        resultsPerDataSource:  Array< {
+        matchedNames:  Array< {
           dataSource:  {
             id: number,
             title: string,
           },
-          results:  Array< {
-            classification:  {
-              path: string | null,
+          classification:  {
+            path: string | null,
+          },
+          acceptedName:  {
+            name:  {
+              value: string,
             },
-            acceptedName:  {
-              name:  {
-                value: string,
-              },
-            } | null,
-            matchType:  {
-              kind: string,
-              score: number,
-            },
-          } >,
+          } | null,
+          matchType:  {
+            kind: string,
+            score: number,
+          },
         } >,
       } >,
     } >,

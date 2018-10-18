@@ -5,6 +5,7 @@ import {NameResolverQuery, NameResolverQueryVariables} from '../api-client/Opera
 import {Apollo} from 'apollo-angular';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {SearchStatus, SearchStatusService} from '../search-box/search-box.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-names-resolver',
@@ -31,24 +32,22 @@ export class NamesResolverComponent implements OnInit {
             name {
               value
             }
-            resultsPerDataSource {
+            matchedNames {
               dataSource {
                 id
                 title
               }
-              results {
-                classification {
-                  path
+              classification {
+                path
+              }
+              acceptedName {
+                name {
+                  value
                 }
-                acceptedName {
-                  name {
-                    value
-                  }
-                }
-                matchType {
-                  kind
-                  score
-                }
+              }
+              matchType {
+                kind
+                score
               }
             }
           }
@@ -127,6 +126,33 @@ export class NamesResolverComponent implements OnInit {
   selectItem(idx) {
     console.log(idx);
     this.selectedNameIdx = idx;
+  }
+
+  matchesByDatasource(result) {
+    if (_.isEmpty(result.matchedNames)) {
+      return [];
+    }
+
+    const resultArr = [];
+    let accumulatedMatchedNames = [];
+    let currentDatasource = result.matchedNames[0].dataSource;
+    for (const matchedName of result.matchedNames) {
+      if (matchedName.dataSource.id !== currentDatasource.id) {
+        resultArr.push({
+          dataSource: currentDatasource,
+          results: accumulatedMatchedNames,
+        });
+        currentDatasource = matchedName.dataSource;
+        accumulatedMatchedNames = [];
+      }
+      accumulatedMatchedNames.push(matchedName);
+    }
+    resultArr.push({
+      dataSource: currentDatasource,
+      results: accumulatedMatchedNames,
+    });
+
+    return resultArr;
   }
 
   matchKindColor(matchKind: String) {
