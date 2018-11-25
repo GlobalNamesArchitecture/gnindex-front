@@ -51,7 +51,7 @@ export class NameStringsSearchComponent implements OnInit {
           canonicalName {
             value
           }
-          names {
+          matchedNames {
             dataSource {
               id
               title
