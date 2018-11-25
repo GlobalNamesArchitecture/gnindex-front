@@ -48,22 +48,20 @@ export type NameStringsQuery = {
       canonicalName:  {
         value: string,
       } | null,
-      resultsPerDataSource:  Array< {
+      names:  Array< {
         dataSource:  {
           id: number,
           title: string,
         },
-        results:  Array< {
-          acceptedName:  {
-            name:  {
-              value: string,
-            },
-          } | null,
-          classification:  {
-            path: string | null,
-            pathRanks: string | null,
+        acceptedName:  {
+          name:  {
+            value: string,
           },
-        } >,
+        } | null,
+        classification:  {
+          path: string | null,
+          pathRanks: string | null,
+        },
       } >,
     } >,
   },

@@ -58,9 +58,9 @@
         </ul>
 
         <h5>Data Sources</h5>
-        <div *ngIf="selectedResult().resultsPerDataSource.length > 0">
+        <div *ngIf="selectedResult().matchedNames?.length > 0">
           <div class="card mb-2"
-               *ngFor="let resultPerDataSource of selectedResult().resultsPerDataSource">
+               *ngFor="let resultPerDataSource of namesByDatasource(selectedResult())">
             <h6 class="card-header">
               <a [href]="'datasource/' + resultPerDataSource.dataSource.id">
                 {{resultPerDataSource.dataSource.title}}

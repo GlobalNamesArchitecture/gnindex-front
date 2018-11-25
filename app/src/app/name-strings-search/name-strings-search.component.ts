@@ -12,6 +12,7 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NameStringsQuery, NameStringsQueryVariables} from '../api-client/OperationResultTypes';
 import gql from 'graphql-tag';
 import {Apollo} from 'apollo-angular';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-name-strings-search',
@@ -50,21 +51,19 @@ export class NameStringsSearchComponent implements OnInit {
           canonicalName {
             value
           }
-          resultsPerDataSource {
+          names {
             dataSource {
               id
               title
             }
-            results {
-              acceptedName {
-                name {
-                  value
-                }
+            acceptedName {
+              name {
+                value
               }
-              classification {
-                path
-                pathRanks
-              }
+            }
+            classification {
+              path
+              pathRanks
             }
           }
         }
@@ -132,17 +131,17 @@ export class NameStringsSearchComponent implements OnInit {
 
     this.results =
       this.searchNameStrings(this.searchStatus.searchText, page, this.itemsPerPage)
-      .map((response) => {
-        this.loading = false;
-        this.pageNumber = page;
-        this.response = response;
-        this.total = this.response['resultsCount'];
-        console.log('name-strings results:');
-        console.log(this.response);
-        this.selectItem(0);
-        this._changeDetectorRef.markForCheck();
-        return this.response['names'];
-      });
+        .map((response) => {
+          this.loading = false;
+          this.pageNumber = page;
+          this.response = response;
+          this.total = this.response['resultsCount'];
+          console.log('name-strings results:');
+          console.log(this.response);
+          this.selectItem(0);
+          this._changeDetectorRef.markForCheck();
+          return this.response['names'];
+        });
 
     this._changeDetectorRef.markForCheck();
   }
@@ -156,11 +155,11 @@ export class NameStringsSearchComponent implements OnInit {
       const query = `can:${result.canonicalName.value}`;
       console.log('searching for canonical name: ' + query);
       this.searchNameStrings(query, 1, this.itemsPerPage)
-          .subscribe((response) => {
-            this.namesWithSameCanonicalName = response['names'].map((r) => r['name'].value);
-            console.log(this.namesWithSameCanonicalName);
-            this._changeDetectorRef.markForCheck();
-          });
+        .subscribe((response) => {
+          this.namesWithSameCanonicalName = response['names'].map((r) => r['name'].value);
+          console.log(this.namesWithSameCanonicalName);
+          this._changeDetectorRef.markForCheck();
+        });
     }
   }
 
@@ -190,6 +189,37 @@ export class NameStringsSearchComponent implements OnInit {
   resultIsNotEmpty() {
     return this.response && this.response['resultsCount'] > 0;
   }
+
+  namesByDatasource(result) {
+    console.log('====================');
+    console.log(result);
+
+    if (_.isEmpty(result.matchedNames)) {
+      return [];
+    }
+
+    const resultArr = [];
+    let accumulatedMatchedNames = [];
+    let currentDatasource = result.matchedNames[0].dataSource;
+    for (const matchedName of result.matchedNames) {
+      if (matchedName.dataSource.id !== currentDatasource.id) {
+        resultArr.push({
+          dataSource: currentDatasource,
+          results: accumulatedMatchedNames,
+        });
+        currentDatasource = matchedName.dataSource;
+        accumulatedMatchedNames = [];
+      }
+      accumulatedMatchedNames.push(matchedName);
+    }
+    resultArr.push({
+      dataSource: currentDatasource,
+      results: accumulatedMatchedNames,
+    });
+
+    return resultArr;
+  }
+
 
   private searchNameStrings(searchText: string, pageNumber: number, itemsPerPage: number) {
     console.log(`searchText: ${searchText}, pageNumber: ${pageNumber},

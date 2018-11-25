@@ -565,57 +565,6 @@
         },
         {
           "kind": "OBJECT",
-          "name": "NameFilterResultsPerDataSourceOT",
-          "description": null,
-          "fields": [
-            {
-              "name": "dataSource",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "DataSource",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "results",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "ResultItem",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
           "name": "NameResponse",
           "description": null,
           "fields": [
@@ -1911,7 +1860,7 @@
               "deprecationReason": null
             },
             {
-              "name": "resultsPerDataSource",
+              "name": "names",
               "description": null,
               "args": [],
               "type": {
@@ -1925,7 +1874,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "OBJECT",
-                      "name": "NameFilterResultsPerDataSourceOT",
+                      "name": "ResultItem",
                       "ofType": null
                     }
                   }
