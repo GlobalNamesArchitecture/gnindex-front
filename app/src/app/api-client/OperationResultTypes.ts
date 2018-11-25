@@ -48,7 +48,7 @@ export type NameStringsQuery = {
       canonicalName:  {
         value: string,
       } | null,
-      names:  Array< {
+      matchedNames:  Array< {
         dataSource:  {
           id: number,
           title: string,
@@ -82,24 +82,22 @@ export type NameResolverQuery = {
         name:  {
           value: string,
         },
-        matchedNames:  Array< {
-          dataSource:  {
-            id: number,
-            title: string,
+        dataSource:  {
+          id: number,
+          title: string,
+        },
+        classification:  {
+          path: string | null,
+        },
+        acceptedName:  {
+          name:  {
+            value: string,
           },
-          classification:  {
-            path: string | null,
-          },
-          acceptedName:  {
-            name:  {
-              value: string,
-            },
-          } | null,
-          matchType:  {
-            kind: string,
-            score: number,
-          },
-        } >,
+        } | null,
+        matchType:  {
+          kind: string,
+          score: number,
+        },
       } >,
     } >,
   },

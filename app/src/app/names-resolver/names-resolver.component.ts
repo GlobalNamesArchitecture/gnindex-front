@@ -32,23 +32,21 @@ export class NamesResolverComponent implements OnInit {
             name {
               value
             }
-            matchedNames {
-              dataSource {
-                id
-                title
+            dataSource {
+              id
+              title
+            }
+            classification {
+              path
+            }
+            acceptedName {
+              name {
+                value
               }
-              classification {
-                path
-              }
-              acceptedName {
-                name {
-                  value
-                }
-              }
-              matchType {
-                kind
-                score
-              }
+            }
+            matchType {
+              kind
+              score
             }
           }
         }
@@ -129,23 +127,23 @@ export class NamesResolverComponent implements OnInit {
   }
 
   matchesByDatasource(result) {
-    if (_.isEmpty(result.matchedNames)) {
+    if (_.isEmpty(result.results)) {
       return [];
     }
 
     const resultArr = [];
     let accumulatedMatchedNames = [];
-    let currentDatasource = result.matchedNames[0].dataSource;
-    for (const matchedName of result.matchedNames) {
-      if (matchedName.dataSource.id !== currentDatasource.id) {
+    let currentDatasource = result.results[0].dataSource;
+    for (const res of result.results) {
+      if (res.dataSource.id !== currentDatasource.id) {
         resultArr.push({
           dataSource: currentDatasource,
           results: accumulatedMatchedNames,
         });
-        currentDatasource = matchedName.dataSource;
+        currentDatasource = res.dataSource;
         accumulatedMatchedNames = [];
       }
-      accumulatedMatchedNames.push(matchedName);
+      accumulatedMatchedNames.push(res);
     }
     resultArr.push({
       dataSource: currentDatasource,
