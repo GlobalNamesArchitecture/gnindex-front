@@ -44,9 +44,6 @@
                 <div *ngIf="apiClientService.formatClassificationPath(res.classification)">
                   Classification path: {{apiClientService.formatClassificationPath(res.classification)}}
                 </div>
-                <div>
-                  <a [href]="res.url || ''" appOcticon="file" width="1em"></a>
-                </div>
               </li>
             </ul>
           </div>
